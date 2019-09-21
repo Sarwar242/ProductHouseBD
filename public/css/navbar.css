@@ -1,0 +1,61 @@
+.clear{
+	overflow: hidden;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width:100%;
+}
+.navbar-default {
+    background-color: #f8f8f8c2;
+    }
+    .navbar-default .navbar-nav > li > a {
+    color: #212121;
+}
+.cd{
+	margin-left: 39%;
+    margin-right: 50%;
+}
+.cusnav{
+	min-height: 104px;
+}
+.cusnamimg{
+	max-height: 100px;
+}
+.cuslia li a{
+	margin-top: 32px;
+font-size: 18px;
+}
+.navbar-default .navbar-nav > .active > a{
+	color: #be4141;
+	background-color: transparent;
+	border: 1px solid #cecece;
+        border-top-color: rgb(206, 206, 206);
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-bottom-color: rgb(206, 206, 206);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    border-radius: 18px;
+    border-bottom: 0px;
+    border-top:0px;
+}
+.navbar-default .navbar-nav > li > a:focus, .navbar-default .navbar-nav > li > a:hover{
+	color: #be4141;
+	background-color: transparent;
+	border: 1px solid #cecece;
+        border-top-color: rgb(206, 206, 206);
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-bottom-color: rgb(206, 206, 206);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+    border-radius: 18px;
+    border-bottom: 0px;
+    border-top:0px;
+    transition: .6s;
+	}
+	.navbar-form{
+		margin-top: 37px;
+	}
