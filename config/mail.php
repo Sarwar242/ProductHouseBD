@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'pro.cse4.bu@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'From ProductHouseBD'),
     ],
 
     /*
@@ -72,7 +72,7 @@ return [
     */
 
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username
@@ -101,6 +101,15 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    //To remove stream_socket_enable_crypto error
+
+    'stream'=>[
+        'ssl'=>[
+            'allow_self_signed'=> true,
+            'verify_peer'=> false,
+            'verify_peer_name'=> false,
+        ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
