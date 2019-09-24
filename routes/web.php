@@ -11,7 +11,6 @@
 |
  */
 
-<<<<<<< HEAD
 Route::get('/', function () {
     return view('welcome');
 });
@@ -40,9 +39,3 @@ Route::get('/logout', 'AdminController@logout')->name('logout');
 
 
 
-=======
-Route::get('/', 'Frontend\producthousebdController@index')->name('index');
-Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
-Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
-Route::get('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
->>>>>>> refs/remotes/origin/master
