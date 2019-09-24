@@ -3,7 +3,19 @@
     border: 1px solid #cccccc;
     padding-top: 15px;
     padding-bottom: 7px;
+<<<<<<< HEAD
 }
 .footerpp p{
 	font-size:17px;
+=======
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+}
+.footerpp p{
+	font-size:17px;
+	text-align: center;
+>>>>>>> refs/remotes/origin/master
 }
