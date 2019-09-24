@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::match(['get','post'],'/admin','AdminController@login')->name('admin');
 
-//Route::match(['get','post'],'/admin/reset','AdminController@reset')->name('reset');
+Route::match(['get','post'],'/admin/reset','AdminController@reset')->name('reset');
 
 Route::group(['middleware'=>['auth']], function()
 {

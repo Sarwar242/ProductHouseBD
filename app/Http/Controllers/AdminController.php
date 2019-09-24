@@ -31,7 +31,7 @@ class AdminController extends Controller
         return view('admin.admin_login');
     }
 
-    /* public function reset(Request $req)
+     public function reset(Request $req)
     {
         if ($req->isMethod('post'))
         {
@@ -51,7 +51,7 @@ class AdminController extends Controller
             }
         }
         return view('admin.admin_login');
-    } */
+    } 
 
     public function dashboard()
     {
