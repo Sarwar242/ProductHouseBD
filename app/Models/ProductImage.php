@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductImage extends Model
 {
     public function productImage()
     {
-        $this->hasOne(Product::class);
+        $this->belongsTo(Product::class);
     }
 }
