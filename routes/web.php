@@ -32,6 +32,10 @@ Route::group(['middleware'=>['auth']], function()
     Route::get('/admin/check-pwd', 'AdminController@chkPassword')->name('chk_pwd');
 
     Route::match(['get','post'],'/admin/update-pwd','AdminController@updtPassword')->name('updt_pwd');
+
+    //categories routes
+    Route::match(['get','post'],'/admin/add-category','CategoryController@addCategory');
+    Route::get('/admin/view-categories', 'CategoryController@viewCategories');
     
 });
 
