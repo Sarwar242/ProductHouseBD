@@ -1,6 +1,8 @@
 
 $(document).ready(function(){
-	
+
+	//password updation start
+
 	$("#current_pwd").keyup(function()
 		{
 			var current_pwd= $("#current_pwd").val();
@@ -29,11 +31,15 @@ $(document).ready(function(){
 			)
 		}
 	);
+
+	//password updation end
+
 	$('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 	
 	$('select').select2();
 	
 	// Form Validation
+
     $("#basic_validate").validate({
 		rules:{
 			required:{
@@ -62,7 +68,34 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
+
+	// Add Category Validation start
+
+	$("#add_category").validate({
+		rules: {
+			category_name: {
+				required: true
+			},
+			description: {
+				required: true,
+			},
+			url: {
+				required: true,
+			}
+		},
+		errorClass: "help-inline",
+		errorElement: "span",
+		highlight: function (element, errorClass, validClass) {
+			$(element).parents('.control-group').addClass('error');
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).parents('.control-group').removeClass('error');
+			$(element).parents('.control-group').addClass('success');
+		}
+	});
 	
+	// Add Category Validation end
+
 	$("#number_validate").validate({
 		rules:{
 			min:{
@@ -88,6 +121,8 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
+
+	// Password Updation start
 	
 	$("#password_validate").validate({
 		rules:{
@@ -118,4 +153,6 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
+	// Password Updation end
+
 });

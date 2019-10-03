@@ -24,14 +24,27 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::match(['get', 'post'], '/admin', 'AdminController@login')->name('admin');
 
-//Route::match(['get','post'],'/admin/reset','AdminController@reset')->name('reset');
+Route::match(['get','post'],'/admin/reset','AdminController@reset')->name('reset');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard')->name('dash_name');
     Route::get('/admin/settings', 'AdminController@settings')->name('set_name');
     Route::get('/admin/check-pwd', 'AdminController@chkPassword')->name('chk_pwd');
 
+<<<<<<< HEAD
     Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@updtPassword')->name('updt_pwd');
+=======
+    Route::match(['get','post'],'/admin/update-pwd','AdminController@updtPassword')->name('updt_pwd');
+
+    //categories routes
+    Route::match(['get','post'],'/admin/add-category','CategoryController@addCategory');
+    Route::get('/admin/view-categories', 'CategoryController@viewCategories');
+    
+});
+
+Route::get('/logout', 'AdminController@logout')->name('logout');
+
+>>>>>>> e22ab8387f834023fc3b4de8daeb5e370ddab390
 
 });
 
