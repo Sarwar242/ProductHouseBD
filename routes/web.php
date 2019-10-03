@@ -33,7 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
 
 <<<<<<< HEAD
     Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@updtPassword')->name('updt_pwd');
-=======
     Route::match(['get','post'],'/admin/update-pwd','AdminController@updtPassword')->name('updt_pwd');
 
     //categories routes
