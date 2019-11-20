@@ -17,13 +17,19 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        switch ($guard) {
+            case 'admin':
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('homeadmin');
+                }
+                break;
+            case 'web':
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('index');
+                }
+                break;
+
         }
-        /* else
-        {
-            return redirect()->action('AdminController@login')->with('flash_message_error','Please, at first login to access...');
-        } */
         return $next($request);
     }
 }

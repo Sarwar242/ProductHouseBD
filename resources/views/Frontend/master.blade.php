@@ -52,7 +52,7 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right cuslia">
                     <li><a href="#">Cart</a></li>
-                    <li><a href="#">Login/Registration</a></li>
+                    <li><a href="{{route('login')}}">Login/Registration</a></li>
 
 
                 </ul>
