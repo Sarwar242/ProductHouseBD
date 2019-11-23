@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/', 'Backend\AdminController@homeadmin')->name('homeadmin');
+    Route::get('/addCategory', 'Backend\ProductController@showCategoryForm')->name('admin.addCategory');
+    Route::post('/addCategory', 'Backend\ProductController@categoryStore')->name('admin.addCategory.store');
 
     // Route::get('/admins', 'Backend\AdminsController@admins')->name('admins');
     // Route::get('/members', 'Backend\AdminsController@members')->name('members');

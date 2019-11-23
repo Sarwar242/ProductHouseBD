@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryTable extends Migration
+class Categories extends Migration
 {
     /**
      * Run the migrations.
@@ -15,14 +15,14 @@ class CreateCategoryTable extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('parent_id');
             $table->string('name');
             $table->text('description');
-            $table->string('url');
-            $table->tinyInteger('status');
+            $table->string('image')->nullable();
+            $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -33,5 +33,6 @@ class CreateCategoryTable extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
+
     }
 }

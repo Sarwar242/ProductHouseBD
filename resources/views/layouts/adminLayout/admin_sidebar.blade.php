@@ -6,7 +6,8 @@
         <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Categories</span> <span
                     class="label label-important">2</span></a>
             <ul>
-                <li><a href="{{url('/admin/add-category')}}">Add</a></li>
+                <li><a href="{{route('admin.addCategory')}}">Add</a></li>
+
                 <li><a href="{{url('/admin/view-categories')}}">View</a></li>
             </ul>
         </li>
