@@ -26,9 +26,14 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/', 'Backend\AdminController@homeadmin')->name('homeadmin');
     Route::get('/addCategory', 'Backend\ProductController@showCategoryForm')->name('admin.addCategory');
     Route::post('/addCategory', 'Backend\ProductController@categoryStore')->name('admin.addCategory.store');
+    Route::get('/viewCategory', 'Backend\ProductController@categoryShow')->name('admin.viewCategories');
+    Route::get('/addProduct', 'Backend\ProductController@showProductForm')->name('admin.addProduct');
+    Route::post('/addProduct', 'Backend\ProductController@productStore')->name('admin.addProduct.store');
+    Route::get('/viewProducts', 'Backend\ProductController@productShow')->name('admin.viewProducts');
+    Route::get('/viewOrders', 'Backend\OrderController@orderShow')->name('admin.viewOrders');
 
-    // Route::get('/admins', 'Backend\AdminsController@admins')->name('admins');
-    // Route::get('/members', 'Backend\AdminsController@members')->name('members');
+    Route::get('/admins', 'Backend\AdminsController@admins')->name('admin.admins');
+    Route::get('/users', 'Backend\AdminsController@users')->name('admin.users');
     // Route::get('/inactivemembers', 'Backend\AdminsController@inactivemembers')->name('inactivemembers');
     // Route::get('/review', 'Backend\AdminsController@review')->name('review');
     // Route::get('/reviewed', 'Backend\AdminsController@reviewed')->name('reviewed');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 
 class AdminController extends Controller
 {
@@ -13,8 +14,9 @@ class AdminController extends Controller
     }
     public function homeadmin()
     {
-
-        return view('admin.dashboard');
+        $products = Product::all();
+        $pronum = $products->count();
+        return view('admin.dashboard')->with('pronum', $pronum);
 
     }
 }

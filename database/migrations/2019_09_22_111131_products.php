@@ -19,8 +19,8 @@ class Products extends Migration
             $table->string('product_code')->nullable();
             $table->BigInteger('category_id')->nullable();
             $table->float('product_price', 6, 2)->nullable();
-            $table->string('product_details')->nullable();
-            $table->string('product_discount')->default('0');
+            $table->text('product_details')->nullable();
+            $table->float('product_discount', 6, 2)->default('0');
             $table->timestamps();
         });
     }
@@ -32,6 +32,7 @@ class Products extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('products');
+
     }
 }

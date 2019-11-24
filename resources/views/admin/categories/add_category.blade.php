@@ -1,4 +1,7 @@
 @extends('layouts.adminLayout.admin_design')
+@section('act2')
+active
+@endsection
 @section('content')
 
 <div id="content">

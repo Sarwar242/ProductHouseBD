@@ -61,7 +61,7 @@ class LoginController extends Controller
             return redirect()->intended(route('homeadmin'));
 
         } else {
-            session()->flash('failed', 'invalid login!');
+            session()->flash('failed', 'invalid Email or Password!');
             return back();
         }
     }
