@@ -32,11 +32,12 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/viewProducts', 'Backend\ProductController@productShow')->name('admin.viewProducts');
     Route::get('/viewOrders', 'Backend\OrderController@orderShow')->name('admin.viewOrders');
 
-    Route::get('/admins', 'Backend\AdminsController@admins')->name('admin.admins');
-    Route::get('/users', 'Backend\AdminsController@users')->name('admin.users');
-    // Route::get('/inactivemembers', 'Backend\AdminsController@inactivemembers')->name('inactivemembers');
-    // Route::get('/review', 'Backend\AdminsController@review')->name('review');
-    // Route::get('/reviewed', 'Backend\AdminsController@reviewed')->name('reviewed');
+    Route::get('/admins', 'Backend\AdminController@admins')->name('admin.admins');
+    Route::get('/users', 'Backend\AdminController@users')->name('admin.users');
+
+    // Route::get('/inactivemembers', 'Backend\AdminController@inactivemembers')->name('inactivemembers');
+    // Route::get('/review', 'Backend\AdminController@review')->name('review');
+    // Route::get('/reviewed', 'Backend\AdminController@reviewed')->name('reviewed');
 
     // Admin Login
     Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')

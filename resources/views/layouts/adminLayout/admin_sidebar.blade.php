@@ -27,7 +27,8 @@
                 <li><a href="{{route('admin.viewOrders')}}">Delivered</a></li>
             </ul>
         </li>
-        <li class="submenu @yield('act5','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
+        <li class="submenu @yield('act5','inactive')">
+            <a href="#"><i class="icon icon-th-list"></i>
                 <span>Admins</span></a>
             <ul>
                 <li><a href="#">Add New Admin</a></li>

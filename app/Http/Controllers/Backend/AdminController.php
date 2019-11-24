@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Product;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -18,5 +20,16 @@ class AdminController extends Controller
         $pronum = $products->count();
         return view('admin.dashboard')->with('pronum', $pronum);
 
+    }
+
+    public function admins()
+    {
+        $admins = Admin::get();
+        return view('admin.admins')->with('admins', $admins);
+    }
+    public function users()
+    {
+        $users = User::get();
+        return view('admin.users')->with('users', $users);
     }
 }
