@@ -31,7 +31,7 @@
             <a href="#"><i class="icon icon-th-list"></i>
                 <span>Admins</span></a>
             <ul>
-                <li><a href="#">Add New Admin</a></li>
+                <li><a href="{{route('admin.addAdmin')}}">Add New Admin</a></li>
                 <li><a href="{{route('admin.admins')}}">Admins</a></li>
             </ul>
         </li>

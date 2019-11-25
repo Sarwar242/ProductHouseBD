@@ -33,6 +33,8 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/viewOrders', 'Backend\OrderController@orderShow')->name('admin.viewOrders');
 
     Route::get('/admins', 'Backend\AdminController@admins')->name('admin.admins');
+    Route::get('/addAdmin', 'Backend\AdminController@showAdminForm')->name('admin.addAdmin');
+    Route::post('/addAdmin', 'Backend\AdminController@createAdmin')->name('admin.addAdmin.create');
     Route::get('/users', 'Backend\AdminController@users')->name('admin.users');
 
     // Route::get('/inactivemembers', 'Backend\AdminController@inactivemembers')->name('inactivemembers');

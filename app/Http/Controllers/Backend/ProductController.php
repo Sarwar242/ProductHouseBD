@@ -94,7 +94,6 @@ class ProductController extends Controller
             "image" => 'sometimes|file|image|max:3000',
         ]);
         return $validatedData;
-
     }
 
     // private function validateRequest()

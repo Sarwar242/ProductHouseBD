@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->String('name');
             $table->String('contact');
             $table->text('primary_address');
-            $table->text('secondary_address');
+            $table->text('secondary_address')->nullable();
             $table->String('payment_method');
             $table->tinyInteger('payment_status');
             $table->tinyInteger('order_status');
