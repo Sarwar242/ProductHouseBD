@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function productImage()
+    protected $guarded = [];
+    public function productImages()
     {
-        $this->hasOne(Product::class);
+        return $this->hasMany(ProductImage::class, 'product_code', 'product_code');
     }
 }

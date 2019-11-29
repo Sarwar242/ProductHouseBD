@@ -23,7 +23,7 @@
             <i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
             <i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
 
-            <img src="{{ asset('frontend/logo/cosmolinelogo.png') }}" class="logo">
+            <img src="{{ asset('frontend/logo/cosmoline.png') }}" class="logo">
             <input type="text" class="form-control">
             <span class="input-group-text"><i class="fa fa-search"></i>
             </span>

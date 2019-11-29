@@ -9,7 +9,8 @@ class producthousebdController extends Controller
 {
     public function index()
     {
-        $product = Product::orderBY('created_at', 'desc')->get();
+        $product = Product::all();
+
         return view('Frontend.index')->with('products', $product);
     }
     public function productDetails($id)

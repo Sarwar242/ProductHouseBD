@@ -54,35 +54,22 @@
                                 placeholder="Enter Your Shipping Name" required />
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="control-label col-sm-2" for="shipping_contact">Shipping Contact: *</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control inputs" value="+8801951233084" id="shipping_contact"
-                                placeholder="Enter Your Shipping Contact No" required />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="shipping_primary_address">Shipping Primary
+                        <label class="control-label col-sm-2" for="shipping_primary_address">Shipping
                             Address: *</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control inputs" id="shipping_primary_address"
                                 placeholder="Enter Your Shipping primary Address" required />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="shipping_secondary_address">Shipping secondary
-                            Address:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control inputs" id="shipping_secondary_address"
-                                placeholder="Enter Your Shipping Secondary or optional Address" />
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="shipping_nearest_city">Select Nearest state:
                             *</label>
                         <div class="col-sm-10">
                             <select name="state" class="form-control inputs" id="shipping_nearest_city" required>
-                                <option value="">Select a state</option>
+                                <option value="">Select a City</option>
                                 <option value="London">London</option>
                                 <option value="Dhaka">Dhaka</option>
                                 <option value="Mymensingh">Mymensingh</option>
@@ -111,20 +98,9 @@
                         <div class="col-sm-10">
                             <select name="payments" id="payments" class="form-control inputs" required>
                                 <option value="">Select A payment method</option>
-                                <option value="payment_paypal">Paypal</option>
-                                <option value="payment_stripe">Stripe</option>
+
                                 <option value="payment_bkash">Bkash</option>
                             </select>
-                            <div class="payment-div payment-div-paypal hidden">
-                                <i class="fa fa-cc-paypal"></i> <br />
-                                <a href="paypal.php?id=test" class="btn btn-lg btn-yellow">Payment Via Paypal
-                                    Now</a>
-                            </div>
-                            <div class="payment-div payment-div-stripe hidden">
-                                <i class="fa fa-cc-stripe"></i> <br />
-                                <a href="stripe.php?id=test" class="btn btn-lg btn-yellow">Payment Via Stripe
-                                    Now</a>
-                            </div>
                             <div class="payment-div payment-div-bkash hidden">
                                 <i>Bkash</i> <br />
                                 <a href="bkash.php?id=test" class="btn btn-lg btn-yellow">Payment Via Bkash Now</a>
