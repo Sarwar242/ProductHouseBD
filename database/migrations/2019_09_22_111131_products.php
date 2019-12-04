@@ -21,6 +21,7 @@ class Products extends Migration
             $table->float('product_price', 6, 2)->nullable();
             $table->text('product_details')->nullable();
             $table->float('product_discount', 6, 2)->default('0');
+            $table->BigInteger('product_quantity')->default('0');
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-@extends('Frontend.master')
+@extends('Frontend.layouts.master')
 @section('contents')
 <div class="imageintro">
     <img style="opacity:30%;" src="{{asset('images/cover.png')}}">

@@ -1,4 +1,4 @@
-@extends('Frontend.master')
+@extends('Frontend.layouts.master')
 @section('contents')
 
 
@@ -13,20 +13,20 @@
             </div>
             <form action="{{route('product.order.confirm',$product->id)}}" method="POST" class="form-horizontal"
                 role="form" id="checkoutForm">
-
+                @csrf
                 <div id="check1">
                     <h3>Basic Informations</h3>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="checkoutEmail">Email: *</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control inputs" id="checkoutEmail" placeholder="Enter email"
-                                required />
+                            <input type="email" name="email" class="form-control inputs" id="checkoutEmail"
+                                placeholder="Enter email" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="checkoutContact">Contact: *</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control inputs" id="checkoutContact"
+                            <input type="text" name="phone" class="form-control inputs" id="checkoutContact"
                                 placeholder="01951233084 or +8801951233084" required />
                             <span class="input-hint">Phone number must be a Bangladeshi number like +8801951233084
                                 or 01951233084 [Only for test and you can add your regexp and make it
@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="shipping_name">Shipping Name: *</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control inputs" id="shipping_name" value="Maniruzzaman Akash"
+                            <input type="text" name="name" class="form-control inputs" id="shipping_name"
                                 placeholder="Enter Your Shipping Name" required />
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                         <label class="control-label col-sm-2" for="shipping_primary_address">Shipping
                             Address: *</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control inputs" id="shipping_primary_address"
-                                placeholder="Enter Your Shipping primary Address" required />
+                            <input type="text" name="address" class="form-control inputs" id="shipping_primary_address"
+                                placeholder="Enter Your Shipping Address" required />
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@
                         <label class="control-label col-sm-2" for="shipping_nearest_city">Select Nearest state:
                             *</label>
                         <div class="col-sm-10">
-                            <select name="state" class="form-control inputs" id="shipping_nearest_city" required>
+                            <select name="city" class="form-control inputs" id="shipping_nearest_city" required>
                                 <option value="">Select a City</option>
                                 <option value="London">London</option>
                                 <option value="Dhaka">Dhaka</option>
@@ -96,20 +96,20 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="address_primary">Select Payment Option: *</label>
                         <div class="col-sm-10">
-                            <select name="payments" id="payments" class="form-control inputs" required>
+                            <select name="payment" id="payments" class="form-control inputs" required>
                                 <option value="">Select A payment method</option>
 
                                 <option value="payment_bkash">Bkash</option>
                             </select>
                             <div class="payment-div payment-div-bkash hidden">
                                 <i>Bkash</i> <br />
-                                <a href="bkash.php?id=test" class="btn btn-lg btn-yellow">Payment Via Bkash Now</a>
+                                <a href="#" class="btn btn-lg btn-yellow">Payment Via Bkash Now</a>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <input type="submit" class="btn btn-info pull-right  margin-top-20" name="submit_check1"
+                            <input type="submit" class="btn btn-info pull-right  margin-top-20" name="submit"
                                 value="Finish Order" />
                             <div class="clearfix"></div>
                         </div>

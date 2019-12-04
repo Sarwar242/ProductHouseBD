@@ -10,11 +10,15 @@
 Route::get('/', 'Frontend\producthousebdController@index')->name('index');
 Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
 Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
-Route::get('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
+Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/dynamic_pdf', 'Frontend\DynamicPDFController@index')
+    ->name('dynamic.pdf');
+Route::get('/dynamic_pdf/pdf', 'Frontend\DynamicPDFController@pdf')->name('dynamic.pdf.generate');
 
 Route::group(['middleware' => ['auth']], function () {
 

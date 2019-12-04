@@ -78,13 +78,13 @@
 
         <div class="row">
             <div class="col-md-4">
-                <img src="images/airpods.jpg">
+                <img src="{{asset('frontend/images/airpods.jpg')}}">
             </div>
             <div class="col-md-4">
-                <img src="images/cosmo2.jpg">
+                <img src="{{asset('frontend/images/cosmo2.jpg')}}">
             </div>
             <div class="col-md-4">
-                <img src="images/smwatch.jpg">
+                <img src="{{asset('frontend/images/smwatch.jpg')}}">
             </div>
         </div>
     </div>
@@ -104,7 +104,8 @@
             <div class="col-md-3">
                 <div class="product-top">
                     @foreach($product->productImages as $productImage)
-                    <a href="{{route('product.details',$product->id)}}"> <img src="{{ asset('storage')}}/{{$productImage->image}}"></a>
+                    <a href="{{route('product.details',$product->id)}}"> <img
+                            src="{{ asset('storage')}}/{{$productImage->image}}"></a>
                     @break
                     @endforeach
                     <div class="overlay-right">
@@ -328,25 +329,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 feature-box">
-                <img src="images/cosmo.jpg">
+                <img src="{{asset('frontend/images/cosmo.jpg')}}">
                 <div class="feature-text">
                     <p><b>100% Original Items</b> are available.</p>
                 </div>
             </div>
             <div class="col-md-3 feature-box">
-                <img src="images/shoe.jpg">
+                <img src="{{asset('frontend/images/payment.jpg')}}">
                 <div class="feature-text">
                     <p><b>Easy Payment</b> method [Bkash].</p>
                 </div>
             </div>
             <div class="col-md-3 feature-box">
-                <img src="images/airpods.jpg">
+                <img src="{{asset('frontend/images/airpods.jpg')}}">
                 <div class="feature-text">
                     <p><b>Quick Delivery</b> within given time.</p>
                 </div>
             </div>
             <div class="col-md-3 feature-box">
-                <img src="images/watch.jpg">
+                <img src="{{asset('frontend/images/watch.jpg')}}">
                 <div class="feature-text">
                     <p><b>Quick Response</b> for any query.</p>
                 </div>
