@@ -17,7 +17,18 @@
                 <li class="divider"></li>
                 <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
                 <li class="divider"></li>
-                <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+
+
+                <li>
+                    <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
+                        <i class="icon icon-share-alt"></i> {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" method="POST" action="{{ route('admin.logout') }}" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+
             </ul>
         </li>
         <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"

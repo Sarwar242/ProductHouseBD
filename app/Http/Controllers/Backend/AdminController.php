@@ -20,18 +20,18 @@ class AdminController extends Controller
     {
         $products = Product::all();
         $pronum = $products->count();
-        return view('admin.dashboard')->with('pronum', $pronum);
+        return view('Backend.dashboard')->with('pronum', $pronum);
 
     }
 
     public function admins()
     {
         $admins = Admin::get();
-        return view('admin.admins')->with('admins', $admins);
+        return view('Backend.admins.admins')->with('admins', $admins);
     }
     public function showAdminForm()
     {
-        return view('admin.addadmin');
+        return view('Backend.admins.addadmin');
     }
     public function createAdmin(Request $request)
     {
@@ -54,7 +54,7 @@ class AdminController extends Controller
 
             $admin->save();
 
-            return redirect()->route('admin.addAdmin')
+            return redirect()->route('Backend.admins.addAdmin')
                 ->with('flash_message_success',
                     'New Admin Created successfully!!! If you wanna see go to your "Admins view" page.');
         }
@@ -65,6 +65,6 @@ class AdminController extends Controller
     public function users()
     {
         $users = User::get();
-        return view('admin.users')->with('users', $users);
+        return view('Backend.users.users')->with('users', $users);
     }
 }

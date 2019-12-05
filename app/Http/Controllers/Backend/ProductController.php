@@ -15,14 +15,14 @@ class ProductController extends Controller
         $products = Product::all();
         $pronum = $products->count();
 
-        return view('admin.categories.add_category')->with('pronum', $pronum);
+        return view('Backend.categories.add_category')->with('pronum', $pronum);
     }
     public function categoryStore(Request $request)
     {
         if ($request->isMethod('post')) {
             $category = Category::create($this->validateRequest());
             $this->storeImage($category);
-            return redirect()->route('admin.addCategory')
+            return redirect()->route('Backend.categories.addCategory')
                 ->with('flash_message_success',
                     'One category added successfully!!! If you wanna see go to your "categories view" page.');
         }
@@ -32,14 +32,14 @@ class ProductController extends Controller
     public function categoryShow()
     {
         $categories = Category::get();
-        return view('admin.categories.view_categories')->with(compact('categories'));
+        return view('Backend.categories.view_categories')->with(compact('categories'));
     }
 
     public function showProductForm()
     {
         $categories = Category::get();
 
-        return view('admin.products.add_product')
+        return view('Backend.products.add_product')
             ->with('categories', $categories);
     }
     public function productStore(Request $request)
@@ -73,7 +73,7 @@ class ProductController extends Controller
             $product->save();
             $image->save();
 
-            return redirect()->route('admin.addProduct')
+            return redirect()->route('Backend.products.addProduct')
                 ->with('flash_message_success',
                     'One Product added successfully!!! If you wanna see go to your "Products view" page.');
         }
@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function productShow()
     {
         $products = Product::get();
-        return view('admin.products.view_products')->with(compact('products'));
+        return view('Backend.products.view_products')->with(compact('products'));
     }
 
     private function validateRequest()

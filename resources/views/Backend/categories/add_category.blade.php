@@ -1,4 +1,4 @@
-@extends('layouts.adminLayout.admin_design')
+@extends('Backend.layouts.admin_design')
 @section('act2')
 active
 @endsection

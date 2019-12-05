@@ -19,13 +19,13 @@
 
 <body>
 
-    @include('layouts.adminLayout.admin_header')
+    @include('Backend.layouts.admin_header')
 
-    @include('layouts.adminLayout.admin_sidebar')
+    @include('Backend.layouts.admin_sidebar')
 
     @yield('content')
 
-    @include('layouts.adminLayout.admin_footer')
+    @include('Backend.layouts.admin_footer')
 
     <!-- from from_validation.html -->
 

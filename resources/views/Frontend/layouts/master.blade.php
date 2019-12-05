@@ -31,17 +31,41 @@
             </span>
         </div>
         <div class="menu-bar">
+            @if (Route::has('login'))
             <ul>
+                @auth
                 <li>
                     <a href="#"><i class="fa fa-shopping-basket"></i>Cart</a>
                 </li>
-                <li>
-                    <a href="#">Sign Up</a>
+                <li class="dropdown">
+                    <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
                 </li>
+                @else
                 <li>
-                    <a href="#">Login</a>
+                    <a href="{{ route('login') }}">Login</a>
                 </li>
+                @if (Route::has('register'))
+                <li>
+                    <a href="{{ route('register') }}">Sign Up</a>
+                </li>
+                @endif
+                @endauth
             </ul>
+            @endif
         </div>
     </div>
     @yield('contents')

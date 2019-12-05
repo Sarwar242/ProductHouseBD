@@ -41,10 +41,6 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/addAdmin', 'Backend\AdminController@createAdmin')->name('admin.addAdmin.create');
     Route::get('/users', 'Backend\AdminController@users')->name('admin.users');
 
-    // Route::get('/inactivemembers', 'Backend\AdminController@inactivemembers')->name('inactivemembers');
-    // Route::get('/review', 'Backend\AdminController@review')->name('review');
-    // Route::get('/reviewed', 'Backend\AdminController@reviewed')->name('reviewed');
-
     // Admin Login
     Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')
         ->name('admin.login');

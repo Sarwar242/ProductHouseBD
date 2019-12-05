@@ -42,7 +42,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('admin.login');
+        return view('Backend.auth.login');
     }
     public function login(Request $request)
     {
@@ -70,7 +70,7 @@ class LoginController extends Controller
         $this->guard('admin')->logout();
         session()->forget(['adminName', 'adminId']);
         $request->session()->invalidate();
-        return redirect()->route('admin.login');
+        return redirect()->route('Backend.auth.login');
     }
 
 }
