@@ -70,7 +70,7 @@ class LoginController extends Controller
         $this->guard('admin')->logout();
         session()->forget(['adminName', 'adminId']);
         $request->session()->invalidate();
-        return redirect()->route('Backend.auth.login');
+        return redirect()->route('admin.login');
     }
 
 }

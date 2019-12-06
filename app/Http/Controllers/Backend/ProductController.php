@@ -73,7 +73,7 @@ class ProductController extends Controller
             $product->save();
             $image->save();
 
-            return redirect()->route('Backend.products.addProduct')
+            return redirect()->route('admin.addProduct')
                 ->with('flash_message_success',
                     'One Product added successfully!!! If you wanna see go to your "Products view" page.');
         }
