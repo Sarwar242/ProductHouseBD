@@ -22,7 +22,7 @@ class ProductController extends Controller
         if ($request->isMethod('post')) {
             $category = Category::create($this->validateRequest());
             $this->storeImage($category);
-            return redirect()->route('Backend.categories.addCategory')
+            return redirect()->route('admin.addCategory')
                 ->with('flash_message_success',
                     'One category added successfully!!! If you wanna see go to your "categories view" page.');
         }
