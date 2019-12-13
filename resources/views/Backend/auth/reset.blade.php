@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Panel</title>
+    <title>Admin Panel| Reset Password</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{ asset('css/backend_css/bootstrap.min.css')}}" />
@@ -40,16 +40,23 @@
 
         @endif
 
-        <form id="loginform" class="form-vertical" method="POST" action="{{ route('admin.login.submit') }}">
+        <form id="loginform" class="form-vertical" method="post" action="{{ route('admin.password.update') }}">
             @csrf
-            <div class="control-group normal_text">
-                <h3><img src="{{asset('images/backend_images/admin_login-logo.jpg')}}" alt="Logo" /></h3>
-            </div>
+             <input type="hidden" name="token" value="{{ $token }}">
+            <p class="normal_text">Enter your e-mail address and new Password and Confirm password to reset your
+                password..</p>
             <div class="control-group">
                 <div class="controls">
                     <div class="main_input_box">
-                        <span class="add-on bg_lg"><i class="icon-user"> </i></span><input type="email" name="email"
-                            placeholder="Email" />
+                        <span class="add-on bg_lg">
+                        <i class="icon-user"> </i></span>
+                        <input type="email" name="email"
+                            value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus />
+                             @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                     </div>
                 </div>
             </div>
@@ -58,37 +65,32 @@
                     <div class="main_input_box">
                         <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password"
                             name="password" placeholder="Password" />
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <div class="main_input_box">
+                        <span class="add-on bg_ly"><i class="icon-lock"></i></span><input type="password"
+                            name="password_confirmation" placeholder="Confirm Password" />
                     </div>
                 </div>
             </div>
             <div class="form-actions">
-                <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">Lost
-                        password?</a></span>
-                <span class="pull-right"><input type="submit" value="Login" class="btn btn-success" /> </span>
-            </div>
-        </form>
-        <form id="recoverform" class="form-vertical" action="{{ route('admin.password.email') }}" method="post">
-            @csrf
-            <p class="normal_text">Enter your e-mail address below and we will send you instructions how to recover a
-                password.</p>
+                <span class="pull-right">
+                    <input type="submit" value="{{ __('Reset Password') }}" class="btn btn-success" /> </span>
 
-            <div class="controls">
-                <div class="main_input_box">
-                    <span class="add-on bg_lo"><i class="icon-envelope"></i></span><input type="email" name="email"
-                        placeholder="E-mail address" />
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login">&laquo; Back to
-                        login</a></span>
-                <span class="pull-right"><input type="submit" value="Recovery" class="btn btn-success" /></span>
             </div>
         </form>
     </div>
 
     <script src="{{ asset('js/backend_js/jquery.min.js')}}"></script>
-    <script src="{{ asset('js/backend_js/matrix.login.js')}}"></script>
+
     <script src="{{ asset('js/backend_js/bootstrap.min.js')}}"></script>
 </body>
 

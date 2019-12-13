@@ -14,8 +14,6 @@ Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@co
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/dynamic_pdf', 'Frontend\DynamicPDFController@index')
     ->name('dynamic.pdf');
 Route::get('/dynamic_pdf/pdf', 'Frontend\DynamicPDFController@pdf')->name('dynamic.pdf.generate');
@@ -58,8 +56,8 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/password/reset', 'Auth\Admin\ResetPasswordController@reset')
         ->name('admin.password.update');
 
-    Route::get('/password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')
-        ->name('admin.password.request');
+    // Route::get('/password/reset', 'Auth\Admin\ForgotPasswordController@showLinkRequestForm')
+    //     ->name('admin.password.request');
     Route::get('/password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')
         ->name('admin.password.reset');
 

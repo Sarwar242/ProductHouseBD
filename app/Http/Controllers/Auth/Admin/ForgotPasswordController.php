@@ -27,10 +27,11 @@ class ForgotPasswordController extends Controller
     {
         $this->middleware('guest:admin');
     }
-    public function showLinkRequestForm()
-    {
-        return view('auth.admin.passwords.email');
-    }
+
+    // public function showLinkRequestForm()
+    // {
+    //     return view('Backend.auth.email');
+    // }
 
     /**
      * Send a reset link to the given user.
@@ -48,7 +49,7 @@ class ForgotPasswordController extends Controller
         $response = $this->broker()->sendResetLink(
             $this->credentials($request)
         );
-
+        session()->flash("flash_message_success", "We have sent you an email with password reset link.Please check...");
         return $response == Password::RESET_LINK_SENT
         ? $this->sendResetLinkResponse($request, $response)
         : $this->sendResetLinkFailedResponse($request, $response);
@@ -64,6 +65,7 @@ class ForgotPasswordController extends Controller
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6',
         ];
     }
 
