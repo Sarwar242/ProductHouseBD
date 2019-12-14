@@ -39,6 +39,18 @@
         </div>
 
         @endif
+        @if(Session::has('success'))
+
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">
+                x
+            </button>
+            <strong>
+                {!! session('success') !!}
+            </strong>
+        </div>
+
+        @endif
 
         <form id="loginform" class="form-vertical" method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
