@@ -2,7 +2,7 @@
 @section('content')
 <div id="content">
     <div id="content-header">
-        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>
+        <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>
                 Home</a> <a href="#" class="current">Settings</a> </div>
         <h1>Settings</h1>
     </div>
@@ -12,7 +12,7 @@
         <div class="row-fluid">
 
             <div class="row-fluid">
-                <div class="span12">
+                <div class="span12" style="opacity:1;">
                     <div class="widget-box">
 
                         @if(Session::has('flash_message_error'))
@@ -45,27 +45,25 @@
                         </div>
 
                         <div class="widget-content nopadding">
-                            <form class="form-horizontal" method="post" action="{{url('/admin/update-pwd')}}"
-                                name="password_validate" id="password_validate" novalidate="novalidate">
+                            <form class="form-horizontal" method="post" action="{{route('admin.updatePassword')}}">
                                 @csrf
                                 <div class="control-group">
                                     <label class="control-label">Current Password</label>
                                     <div class="controls">
-                                        <input type="password" name="current_pwd" id="current_pwd" />
-                                        <span id="chkPwd"></span>
+                                        <input type="password" name="current_pwd" required />
                                     </div>
                                 </div>
 
                                 <div class="control-group">
                                     <label class="control-label">New Password</label>
                                     <div class="controls">
-                                        <input type="password" name="new_pwd" id="new_pwd" />
+                                        <input type="password" name="password" />
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label">Confirm Your New password</label>
                                     <div class="controls">
-                                        <input type="password" name="confirm_pwd" id="confirm_pwd" />
+                                        <input type="password" name="password_confirmation" />
                                     </div>
                                 </div>
                                 <div class="form-actions">

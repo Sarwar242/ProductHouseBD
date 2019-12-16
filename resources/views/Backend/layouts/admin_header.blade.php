@@ -13,12 +13,8 @@
                 <i class="icon icon-user"></i> <span class="text">Welcome {{session('adminName')}}</span><b
                     class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+                <li><a href="{{route('admin.profile')}}"><i class="icon-user"></i> My Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
-                <li class="divider"></li>
-
-
                 <li>
                     <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
@@ -44,7 +40,7 @@
                 <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> trash</a></li>
             </ul>
         </li>
-        <li class=""><a title="" href="{{url('/admin/settings')}}"><i class="icon icon-cog"></i> <span
+        <li class=""><a title="" href="{{route('admin.settings')}}"><i class="icon icon-cog"></i> <span
                     class="text">Settings</span></a></li>
         <li class=""> <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">

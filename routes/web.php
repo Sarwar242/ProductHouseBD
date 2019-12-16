@@ -26,18 +26,35 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/', 'Backend\AdminController@homeadmin')->name('homeadmin');
+
+    //------------- Categories
+
     Route::get('/addCategory', 'Backend\ProductController@showCategoryForm')->name('admin.addCategory');
     Route::post('/addCategory', 'Backend\ProductController@categoryStore')->name('admin.addCategory.store');
     Route::get('/viewCategory', 'Backend\ProductController@categoryShow')->name('admin.viewCategories');
+    Route::get('/editCategory/{id}', 'Backend\ProductController@editcategory')->name('admin.editcategory');
+    Route::post('/updateCategory/{id}', 'Backend\ProductController@updatecategory')->name('admin.editCategory.update');
+    Route::get('/deleteCategory/{id}', 'Backend\ProductController@deleteCategory')->name('admin.deleteCategory');
+
+    /*  ------------ Products ------------- */
     Route::get('/addProduct', 'Backend\ProductController@showProductForm')->name('admin.addProduct');
     Route::post('/addProduct', 'Backend\ProductController@productStore')->name('admin.addProduct.store');
     Route::get('/viewProducts', 'Backend\ProductController@productShow')->name('admin.viewProducts');
     Route::get('/viewOrders', 'Backend\OrderController@orderShow')->name('admin.viewOrders');
+    Route::get('/editProduct/{id}', 'Backend\ProductController@editProduct')->name('admin.editproduct');
+    Route::post('/updateProduct/{id}', 'Backend\ProductController@updateProduct')->name('admin.editproduct.update');
+    Route::get('/deleteProduct/{id}', 'Backend\ProductController@deleteProduct')->name('admin.deleteProduct');
 
+    /**----------------Admins -------------------- */
     Route::get('/admins', 'Backend\AdminController@admins')->name('admin.admins');
     Route::get('/addAdmin', 'Backend\AdminController@showAdminForm')->name('admin.addAdmin');
     Route::post('/addAdmin', 'Backend\AdminController@createAdmin')->name('admin.addAdmin.create');
     Route::get('/users', 'Backend\AdminController@users')->name('admin.users');
+    Route::get('/profile', 'Backend\AdminController@profile')->name('admin.profile');
+    Route::get('/editProfile', 'Backend\AdminController@editProfile')->name('admin.editProfile');
+    Route::post('/updateProfile', 'Backend\AdminController@updateProfile')->name('admin.profileUpdate');
+    Route::get('/settings', 'Backend\AdminController@settings')->name('admin.settings');
+    Route::post('/updatesettings', 'Backend\AdminController@updatePassword')->name('admin.updatePassword');
 
     // Admin Login
     Route::get('/login', 'Auth\Admin\LoginController@showLoginForm')

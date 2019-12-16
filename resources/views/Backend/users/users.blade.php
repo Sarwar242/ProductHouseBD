@@ -39,8 +39,8 @@ active
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
 
-                                    <td class="center"> <a href="#" class="btn btn-primary btn-mini">Edit</a> <a
-                                            href="#" class="btn btn-danger btn-mini">Delete</a></td>
+                                    <td class="center"> <a href="#" class="btn btn-primary btn-mini">Unban</a> <a
+                                            href="#" class="btn btn-danger btn-mini">Ban</a></td>
                                 </tr>
                                 @endforeach
 

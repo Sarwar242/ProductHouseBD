@@ -67,4 +67,72 @@ class AdminController extends Controller
         $users = User::get();
         return view('Backend.users.users')->with('users', $users);
     }
+
+    public function profile()
+    {
+        $id = session('adminId');
+        $admin = Admin::find($id);
+
+        return view('Backend.admins.profile')->with('admin', $admin);
+
+    }
+    public function editProfile()
+    {
+        $id = session('adminId');
+        $admin = Admin::find($id);
+
+        return view('Backend.admins.edit_profile')->with('admin', $admin);
+
+    }
+    public function updateProfile(Request $request)
+    {
+        $this->validate($request, [
+            "name" => 'required',
+            "email" => 'required',
+            "type" => 'sometimes',
+            "avatar" => 'sometimes|file|image|max:3000',
+        ]);
+
+        $id = session('adminId');
+        $oldAdmin = Admin::find($id);
+        $oldAdmin->name = $request->name;
+        $oldAdmin->email = $request->email;
+        $oldAdmin->phone_no = $request->phone;
+        $oldAdmin->type = $request->type;
+        if (request()->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('uploads', 'public');
+            $oldAdmin->avatar = $path;
+        }
+        $oldAdmin->save();
+        $admin = Admin::find($id);
+        return redirect()->route('admin.profile')->with('admin', $admin);
+
+    }
+    public function settings()
+    {
+        return view('Backend.admins.settings');
+    }
+    public function updatePassword(Request $request)
+    {
+
+        $id = session('adminId');
+        $admin = Admin::find($id);
+
+        $new2 = Hash::make($request->password_confirmation);
+        if (!Hash::check($request->current_pwd, $admin->password)) {
+
+            session()->flash('flash_message_error', 'Current Password is not match! Please input correct one or try to reset password.');
+            return redirect()->route('admin.settings')->with('flash_message_error', 'Current Password is not match! Please input correct one or try to reset password.');
+        } elseif ($request->password != $request->password_confirmation) {
+            session()->flash('flash_message_error', 'Confirm Password mismatched!.');
+            return redirect()->route('admin.settings');
+        } else {
+            $admin->password = $new2;
+            $admin->save();
+            session()->flash('flash_message_success', 'Your password have been changed successfully!.');
+
+        }
+        return redirect()->route('admin.settings')->with('flash_message_success', 'Your password have been changed successfully!.');
+    }
+
 }
