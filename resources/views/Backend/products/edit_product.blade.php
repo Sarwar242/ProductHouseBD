@@ -46,8 +46,8 @@ active
                     </div>
                     <div class="widget-content nopadding">
                         <form class="form-horizontal" method="post"
-                            action="{{route('admin.editproduct.update',$product->id)}}" name="add_category"
-                            id="add_category" enctype="multipart/form-data" novalidate="novalidate">
+                            action="{{route('admin.editproduct.update',$product->id)}}" name="add_category" id="upload"
+                            enctype="multipart/form-data" novalidate="novalidate">
                             @csrf
                             <div class="control-group">
                                 <label class="control-label">Product Name</label>
@@ -64,7 +64,7 @@ active
                             <div class="control-group">
                                 <label class="control-label">Product Category</label>
                                 <select name="category" style="margin:20px;">
-                                    <option value="$product->category->id" selected='selected' disabled>
+                                    <option value="$product->category->id" selected>
                                         {{$product->category->name}}</option>
                                     @foreach($categories as $category)
                                     <option value="{{ $category->id }}">
@@ -101,10 +101,26 @@ active
                                         id="quantity">
                                 </div>
                             </div>
+
+
+                            <div class="control-group " style="margin-left:25px; margin-right:5px;">
+                                <div class="row">
+                                    @foreach($product->productImages as $image)
+                                    <div class="span3" style="margin:5px;">
+                                        <img style="width:200px; height:150px; "
+                                            src="{{ asset('storage')}}/{{ ($image->image) }}">
+                                        <a href="{{route('admin.product.deleteimage',$image->id)}}" >Remove</a>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
                             <div class="control-group d-flex flex-column">
                                 <label class="control-label">Product Image</label>
-                                <input type="file" name="image" class="py-10 pl-10" style="margin:20px;">
+                                <input type="file" name="image[]" multiple class="py-10 pl-10" style="margin:20px;">
                             </div>
+
+
                             @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -115,7 +131,7 @@ active
                             </div>
                             @endif
                             <div class="form-actions" style="float:right">
-                                <input type="submit" value="Update" class="btn btn-success">
+                                <input type="submit" name="submit" value="Update" class="btn btn-success">
                             </div>
                         </form>
                     </div>
@@ -123,7 +139,27 @@ active
             </div>
         </div>
 
+
+
     </div>
 </div>
+
+<script>
+var form = document.getElementById('upload');
+var request = new XMLHttpRequest();
+from.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var formdata = new FormData(form);
+
+    request.open('post', '/admin/updateProfile');
+    request.addEventListener("load", transferComplete);
+    request.send(formdata);
+});
+
+function transferComplete(data) {
+    return "success";
+}
+</script>
 
 @endsection

@@ -18,6 +18,10 @@ class ProductImages extends Migration
             $table->string('product_code');
             $table->string('image');
             $table->timestamps();
+
+            $table->foreign('product_code')
+                ->references('product_code')->on('products')
+                ->onDelete('cascade');
         });
 
     }

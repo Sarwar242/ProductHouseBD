@@ -7,7 +7,8 @@ active
 
 <div id="content">
     <div id="content-header">
-        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>
+        <div id="breadcrumb"> <a href="{{route('homeadmin')}}" title="Go to Home" class="tip-bottom"><i
+                    class="icon-home"></i>
                 Home</a> <a href="#">Admins</a> <a href="#" class="current">Add New Admin</a> </div>
         <h1>Admins</h1>
 
@@ -46,7 +47,7 @@ active
                     </div>
                     <div class="widget-content nopadding">
                         <form class="form-horizontal" method="post" action="{{route('admin.addAdmin.create')}}"
-                            name="add_category" id="add_category" enctype="multipart/form-data" novalidate="novalidate">
+                            name="add_admin" id="add_admin" enctype="multipart/form-data" novalidate="novalidate">
                             @csrf
                             <div class="control-group">
                                 <label class="control-label">Admin Name</label>

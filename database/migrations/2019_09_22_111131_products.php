@@ -16,13 +16,18 @@ class Products extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('product_name');
-            $table->string('product_code')->nullable();
-            $table->BigInteger('category_id')->nullable();
+            $table->string('product_code');
+            $table->unsignedBigInteger('category_id');
             $table->float('product_price', 6, 2)->nullable();
             $table->text('product_details')->nullable();
             $table->float('product_discount', 6, 2)->default('0');
             $table->BigInteger('product_quantity')->default('0');
             $table->timestamps();
+
+            $table->foreign('category_id')
+                ->references('id')->on('categories')
+                ->onDelete('cascade');
+
         });
     }
 

@@ -6,15 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CosmolineBD</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/style.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('css/animate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/checkout.css')}}">
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
 
 
     <script type="text/javascript" src="{{asset('js/jquery.min.js')}} "></script>
+
 
 
 </head>
@@ -25,26 +31,41 @@
             <i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
             <i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
 
-            <img src="{{ asset('frontend/logo/cosmoline.png') }}" class="logo">
-            <input type="text" class="form-control">
-            <span class="input-group-text"><i class="fa fa-search"></i>
+            <img src="{{ asset('frontend/logo/cosmoline.png') }}" class="logo"
+                onclick="window.location.href = '{{route('index')}}';">
+
+
+
+            <form id="sea" class="form-control" action="{{ route('search') }}" method="get">
+                @csrf
+                <input type="text" name="search" class="form-input">
+            </form>
+
+            <span class="input-group-text" onclick="event.preventDefault();
+                                                     document.getElementById('sea').submit();"><i
+                    class="fa fa-search"></i>
+
             </span>
+
         </div>
         <div class="menu-bar">
             @if (Route::has('login'))
             <ul>
                 @auth
                 <li>
-                    <a href="#"><i class="fa fa-shopping-basket"></i>Cart</a>
+                    <a href="{{route('carts')}}"><i class="fa fa-shopping-basket"></i>Cart&nbsp
+                        <span class="badge badge-light" id="totalItems">
+                            {{App\Models\Cart::totalItems()}}</span></a>
                 </li>
                 <li class="dropdown">
                     <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" v-pre>
+                        aria-haspopup="true" aria-expanded="false"
+                        onclick="window.location.href = '{{route('user.profile',Auth::user()->id)}}';" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a class="dropdown-item" style="color:black;" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
@@ -104,21 +125,39 @@
             <p class="copyright">Developed By Sarwar&nbsp; <i class="fa fa-heart-o"></i> </p>
         </div>
     </section>
+    <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    function addToCart(product_id) {
+        $.post("/carts/store", {
+                product_id: product_id
+            })
+            .done(function(data) {
+                data = JSON.parse(data);
+                if (data.status == 'success') {
 
+                    $("#totalItems").html(data.totalItems);
+
+                    alertify.set('notifier', 'position', 'top-center');
+
+                    alertify.success('Added to Cart! To checkout goto checkout page');
+
+                }
+            });
+    }
+    </script>
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script type="text/javascript" src="{{asset('js/jquery.validate.min.js')}} "></script>
 
     <script>
     //order validation
     jQuery(document).ready(function() {
-
-
-
         $('.checkbtn1').click(function() {
-
-
-
-
             var email = $('#checkoutEmail').val();
             var contact = $('#checkoutContact').val();
             var pass_check1 = false;

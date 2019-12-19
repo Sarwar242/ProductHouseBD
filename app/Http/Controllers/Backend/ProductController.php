@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -67,6 +70,11 @@ class ProductController extends Controller
     public function deleteCategory($id)
     {
         $category = Category::find($id);
+
+        if (is_file($category->image)) {
+            Storage::delete($category->image);
+        }
+
         $category->delete();
         session()->flash('flash_message_success', 'The category has been deleted Successfully!');
 
@@ -91,7 +99,6 @@ class ProductController extends Controller
             "category" => 'required',
             "price" => 'required',
             "description" => 'required',
-            "image" => 'sometimes|file|image|max:3000',
         ]);
 
         if ($request->isMethod('post')) {
@@ -103,17 +110,18 @@ class ProductController extends Controller
             $product->product_details = $request->description;
             $product->product_discount = $request->discount;
             $product->product_quantity = $request->quantity;
-
-            $image = new ProductImage;
-            if (request()->hasFile('image')) {
-                $path = $request->file('image')->store('uploads', 'public');
-                $image->image = $path;
-            }
-
-            $image->product_code = $request->code;
-
             $product->save();
-            $image->save();
+
+            $files = $request->file('image');
+            if (!empty($files)):
+                foreach ($files as $file):
+                    $path = $file->store('uploads', 'public');
+                    $imagetbl = new ProductImage;
+                    $imagetbl->image = $path;
+                    $imagetbl->product_code = $request->code;
+                    $imagetbl->save();
+                endforeach;
+            endif;
 
             return redirect()->route('admin.addProduct')
                 ->with('flash_message_success',
@@ -142,7 +150,9 @@ class ProductController extends Controller
         $this->validate($request, [
             "name" => 'required',
             "description" => 'required',
-            "image" => 'sometimes|file|image|max:3000',
+            "category" => 'required',
+            "price" => 'required',
+            "code" => 'required',
         ]);
         $product = Product::find($id);
         $product->product_name = $request->name;
@@ -153,25 +163,54 @@ class ProductController extends Controller
         $product->product_discount = $request->discount;
         $product->product_quantity = $request->quantity;
 
-        if (request()->hasFile('image')) {
-            $path = $request->file('image')->store('uploads', 'public');
-            $cd->image = $path;
+        $files = $request->file('image');
+        if (!empty($files)) {
+
+            foreach ($files as $file) {
+
+                $path = $file->store('uploads', 'public');
+                $imagetbl = new ProductImage;
+                $imagetbl->image = $path;
+                $imagetbl->product_code = $request->code;
+                $imagetbl->save();
+            }
+
         }
         $product->save();
         $products = Product::all();
-        session()->flash('flash_message_success', 'You have updated a category successfully!');
-        return redirect()->route('admin.viewCategories')->with(compact('categories'));
-
+        session()->flash('flash_message_success', 'You have updated a Product successfully!');
+        return redirect()->route('admin.viewProducts')->with(compact('products'));
     }
 
     public function deleteProduct($id)
     {
         $pro = Product::find($id);
+        $pc = $pro->product_code;
+        if (!empty($pro->productImages->image)):
+            foreach ($pro->productImages->image as $img):
+                Storage::delete($img);
+            endforeach;
+        endif;
+
+        DB::table('product_images')->where('product_code', '=', $pc)->delete();
+
         $pro->delete();
         session()->flash('flash_message_success', 'The Product has been deleted Successfully!');
 
         $products = Product::all();
         return redirect()->route('admin.viewProducts')->with(compact('products'));
+
+    }
+    public function deleteProductImage($id)
+    {
+        $productimagetbl = ProductImage::find($id);
+        Storage::delete($productimagetbl->image);
+        File::delete($productimagetbl->image);
+        $productimagetbl->delete();
+
+        session()->flash('flash_message_success', 'The Product Image has been deleted Successfully!');
+
+        return redirect()->route('admin.editproduct', $productimagetbl->product->id);
 
     }
 
@@ -225,6 +264,23 @@ class ProductController extends Controller
             ]);
 
         }
+
+    }
+
+    public function uploadTest(Request $request, $id)
+    {
+        // print_r($request->all());
+        $files = $request->file('image');
+        if (!empty($files)):
+            $i = 0;
+            foreach ($files as $file):
+                $path = $file->store('uploads', 'public');
+                $i++;
+
+                //  Storage::put($file->getClientOriginalName(), file_get_contents($file));
+            endforeach;
+            return $i;
+        endif;
 
     }
 }

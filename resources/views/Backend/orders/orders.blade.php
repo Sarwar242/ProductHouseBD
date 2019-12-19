@@ -48,7 +48,7 @@ active
                                     <td>{{$order->shipping_address}}</td>
                                     <td>{{$order->nearest_city}}</td>
                                     <td>{{$order->payment_method }}</td>
-                                    <td>{{$order->payment_status }}</td>
+                                    <td>{{$order->is_paid }}</td>
                                     <td>{{$order->order_status }}</td>
                                     <td class="center"> <a href="#" class="btn btn-primary btn-mini">Edit</a> <a
                                             href="#" class="btn btn-danger btn-mini">Delete</a></td>

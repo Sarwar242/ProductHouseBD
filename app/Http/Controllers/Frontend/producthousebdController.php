@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class producthousebdController extends Controller
 {
@@ -14,13 +16,25 @@ class producthousebdController extends Controller
     public function index()
     {
         $product = Product::all();
+        $categories = Category::all();
+        $users = DB::table('users');
+        $new = Product::orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
 
-        return view('Frontend.index')->with('products', $product);
+        return view('Frontend.index')->with('products', $product)
+            ->with('categories', $categories)->with('new', $new);
     }
     public function productDetails($id)
     {
         $product = Product::find($id);
-        return view('Frontend.singleProduct')->with('product', $product);
+        $cid = $product->category->id;
+        $products = Product::where('category_id', '=', $cid)
+            ->orderBy('created_at')
+            ->get();
+
+        return view('Frontend.singleProduct')
+            ->with('product', $product)->with('products', $products);
     }
     public function orderForm($id)
     {
@@ -42,10 +56,26 @@ class producthousebdController extends Controller
         $order->nearest_city = $request->city;
 
         $order->payment_method = $request->payment;
-        $order->payment_status = 0;
+        $order->is_paid = 0;
         $order->order_status = 0;
 
         $order->save();
-        return view('Frontend.confirmationPage')->with('product', $product);
+
+        $order = Order::find(Auth::user()->id);
+        return view('Frontend.confirmationPage')
+            ->with('product', $product)
+            ->with('order', $order);
     }
+
+    public function category($id)
+    {
+        $category = Category::find($id);
+        $product = Product::where('category_id', '=', $id)
+            ->orderBy('created_at')
+            ->get();
+        return view('Frontend.category')->with('products', $product)
+            ->with('category', $category);
+
+    }
+
 }

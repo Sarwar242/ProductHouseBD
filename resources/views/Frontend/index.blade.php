@@ -2,46 +2,19 @@
 @section('contents')
 <section class="header">
     <div class="side-menu" id="side-menu">
+        <h4 style="color:green">&nbspCategories</h4>
         <ul>
-            <li>On Sale<i class="fa fa-angle-right"></i>
-                <ul>
+            @foreach($categories as $category)
+            <li onclick="window.location.href = '{{route('category',$category->id)}}';"> {{$category->name}}<i
+                    class="fa fa-angle-right"></i>
+
+                <!-- <ul>
                     <li>Submenu 1</li>
                     <li>Submenu 1</li>
                     <li>Submenu 1</li>
-                </ul>
+                </ul> -->
             </li>
-            <li>Mobiles<i class="fa fa-angle-right"></i>
-                <ul>
-                    <li>Submenu 2</li>
-                    <li>Submenu 2</li>
-                    <li>Submenu 2</li>
-                </ul>
-            </li>
-
-            <li>Computers<i class="fa fa-angle-right"></i>
-                <ul>
-                    <li>Submenu 3</li>
-                    <li>Submenu 3</li>
-                    <li>Submenu 3</li>
-                </ul>
-            </li>
-
-            <li>Accessories<i class="fa fa-angle-right"></i>
-                <ul>
-                    <li>Submenu 4</li>
-                    <li>Submenu 4</li>
-                    <li>Submenu 4</li>
-                </ul>
-            </li>
-
-            <li>Cosmetics<i class="fa fa-angle-right"></i>
-                <ul>
-                    <li>Submenu 5</li>
-                    <li>Submenu 5</li>
-                    <li>Submenu 5</li>
-                </ul>
-            </li>
-
+            @endforeach
         </ul>
     </div>
     <div class="slider">
@@ -59,12 +32,32 @@
                 <div class="carousel-item">
                     <img src="{{ asset('frontend/images/slide4.jpg') }}" class="d-block w-100">
                 </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend/images/slide5.jpg') }}" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend/images/slide6.jpg') }}" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend/images/slide7.jpg') }}" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend/images/slide8.jpg') }}" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="{{ asset('frontend/images/slide9.jpg') }}" class="d-block w-100">
+                </div>
             </div>
             <ol class="carousel-indicators">
                 <li data-target="#slider" data-slide-to="0" class="active"></li>
                 <li data-target="#slider" data-slide-to="1"></li>
                 <li data-target="#slider" data-slide-to="2"></li>
-                <li data-target="#slider" data-slide-to="3"></li>
+                <li data-target="#slider" data-slide-to="4"></li>
+                <li data-target="#slider" data-slide-to="5"></li>
+                <li data-target="#slider" data-slide-to="6"></li>
+                <li data-target="#slider" data-slide-to="7"></li>
+                <li data-target="#slider" data-slide-to="8"></li>
+                <li data-target="#slider" data-slide-to="9"></li>
             </ol>
         </div>
     </div>
@@ -109,12 +102,15 @@
                     @break
                     @endforeach
                     <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
+                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i class="fa fa-eye"
+                                onclick="window.location.href = '{{route('product.orderform',$product->id)}}';"></i></button>
                         <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
                                 class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
+
+
+                        <input type="hidden" name="product_id" value="{{$product->id}}">
+                        <button type="button" class="btn btn-secondary" title="Add to Cart"
+                            onclick="addToCart({{$product->id}});"><i class="fa fa-shopping-cart"></i></button>
                     </div>
                 </div>
                 <div class="product-bottom text-center">
@@ -141,105 +137,24 @@
             <h2>New Arrivals</h2>
         </div>
         <div class="row">
+            @foreach($new as $new)
             <div class="col-md-3">
                 <div class="product-top">
-                    <img src="images/headphone2.jpg">
+                    @foreach($new->productImages as $productImage)
+                    <a href="{{route('product.details',$new->id)}}"> <img
+                            src="{{ asset('storage')}}/{{$productImage->image}}"></a>
+                    @break
+                    @endforeach
                     <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
+                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i class="fa fa-eye"
+                                onclick="window.location.href = '{{route('product.orderform',$new->id)}}';"></i></button>
                         <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
                                 class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                    <h3>Head Phone</h3>
-                    <h5>$40.00</h5>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/cosmo5.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <h3>Face Wash</h3>
-                    <h5>$10.00</h5>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/watch2.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <h3>Watch</h3>
-                    <h5>$50.00</h5>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/shoe2.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <h3>Sports Shoe</h3>
-                    <h5>$550.00</h5>
-                </div>
-            </div>
 
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/headphone2.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
+
+                        <input type="hidden" name="product_id" value="{{$new->id}}">
+                        <button type="button" class="btn btn-secondary" title="Add to Cart"
+                            onclick="addToCart({{$new->id}});"><i class="fa fa-shopping-cart"></i></button>
                     </div>
                 </div>
                 <div class="product-bottom text-center">
@@ -248,76 +163,13 @@
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star-half-o"></i>
-                    <h3>Head Phone</h3>
-                    <h5>$40.00</h5>
+                    <h3>{{$new->product_name}}</h3>
+                    <h5>{{$new->product_price}}</h5>
+
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/cosmo5.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <h3>Face Wash</h3>
-                    <h5>$10.00</h5>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/watch2.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <h3>Watch</h3>
-                    <h5>$50.00</h5>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-top">
-                    <img src="images/shoe2.jpg">
-                    <div class="overlay-right">
-                        <button type="button" class="btn btn-secondary" title="Quick Shop"><i
-                                class="fa fa-eye"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Wish List"><i
-                                class="fa fa-heart-o"></i></button>
-                        <button type="button" class="btn btn-secondary" title="Add to Cart"><i
-                                class="fa fa-shopping-cart"></i></button>
-                    </div>
-                </div>
-                <div class="product-bottom text-center">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-half-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <h3>Sports Shoe</h3>
-                    <h5>$550.00</h5>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
 </section>

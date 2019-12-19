@@ -54,7 +54,7 @@ class AdminController extends Controller
 
             $admin->save();
 
-            return redirect()->route('Backend.admins.addAdmin')
+            return redirect()->route('admin.addAdmin')
                 ->with('flash_message_success',
                     'New Admin Created successfully!!! If you wanna see go to your "Admins view" page.');
         }

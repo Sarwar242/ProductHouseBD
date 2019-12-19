@@ -14,18 +14,29 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->bigIncrements('id');
-            $table->BigInteger('user_id');
-            $table->BigInteger('product_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
+            $table->string('ip_address')->nullable();
             $table->String('email');
             $table->String('phone');
             $table->String('name');
             $table->text('shipping_address');
             $table->String('nearest_city');
             $table->String('payment_method');
-            $table->tinyInteger('payment_status');
+            $table->boolean('is_paid')->default(0);
             $table->tinyInteger('order_status');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')
+                ->onDelete('cascade');
+
         });
     }
 

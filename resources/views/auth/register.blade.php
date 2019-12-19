@@ -1,5 +1,7 @@
 @extends('Frontend.layouts.app')
-
+@section('reg')
+hidden
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

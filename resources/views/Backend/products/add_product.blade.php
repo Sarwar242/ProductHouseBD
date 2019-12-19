@@ -45,8 +45,9 @@ active
                         <h5>Add Product</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form class="form-horizontal" method="post" action="{{route('admin.addProduct.store')}}"
-                            name="add_category" id="add_category" enctype="multipart/form-data" novalidate="novalidate">
+                        <form class="form-horizontal" id="upload" method="post"
+                            action="{{route('admin.addProduct.store')}}" name="add_category" id="add_category"
+                            enctype="multipart/form-data" novalidate="novalidate">
                             @csrf
                             <div class="control-group">
                                 <label class="control-label">Product Name</label>
@@ -99,7 +100,7 @@ active
 
                             <div class="control-group d-flex flex-column">
                                 <label class="control-label">Product Image</label>
-                                <input type="file" name="image" class="py-10 pl-10" style="margin:20px;">
+                                <input type="file" name="image[]" multiple class="py-10 pl-10" style="margin:20px;">
                             </div>
                             @if ($errors->any())
                             <div class="alert alert-danger">
@@ -121,5 +122,22 @@ active
 
     </div>
 </div>
+<script>
+var form = document.getElementById('upload');
+var request = new XMLHttpRequest();
+from.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var formdata = new FormData(form);
+
+    request.open('post', '/admin/updateProfile');
+    request.addEventListener("load", transferComplete);
+    request.send(formdata);
+});
+
+function transferComplete(data) {
+    return "success";
+}
+</script>
 
 @endsection

@@ -8,17 +8,31 @@
 
 //User Paths
 Route::get('/', 'Frontend\producthousebdController@index')->name('index');
-Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
-Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
-Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
 
+//Category
+Route::get('/category/{id}', 'Frontend\producthousebdController@category')->name('category');
+
+//Search
+
+Route::get('/search', 'Frontend\SearchController@search')->name('search');
+
+//user Auth
 Auth::routes();
 
 Route::get('/dynamic_pdf', 'Frontend\DynamicPDFController@index')
     ->name('dynamic.pdf');
 Route::get('/dynamic_pdf/pdf', 'Frontend\DynamicPDFController@pdf')->name('dynamic.pdf.generate');
 
+Route::group(['prefix' => '/user'], function () {
+    Route::get('/profile/{id}', 'Frontend\UserController@show')
+        ->name('user.profile');
+});
+
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
+    Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
+
+    Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
 
 });
 
@@ -44,6 +58,7 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/editProduct/{id}', 'Backend\ProductController@editProduct')->name('admin.editproduct');
     Route::post('/updateProduct/{id}', 'Backend\ProductController@updateProduct')->name('admin.editproduct.update');
     Route::get('/deleteProduct/{id}', 'Backend\ProductController@deleteProduct')->name('admin.deleteProduct');
+    Route::get('/deleteProductImage/{id}', 'Backend\ProductController@deleteProductImage')->name('admin.product.deleteimage');
 
     /**----------------Admins -------------------- */
     Route::get('/admins', 'Backend\AdminController@admins')->name('admin.admins');
@@ -77,5 +92,21 @@ Route::group(['prefix' => '/admin'], function () {
     //     ->name('admin.password.request');
     Route::get('/password/reset/{token}', 'Auth\Admin\ResetPasswordController@showResetForm')
         ->name('admin.password.reset');
+
+});
+
+//Cart Routes
+
+Route::group(['prefix' => 'carts'], function () {
+    Route::get('/', 'Frontend\CartController@index')->name('carts');
+    Route::post('/store', 'Frontend\CartController@store')->name('carts.store');
+    Route::post('/update/{id}', 'Frontend\CartController@update')->name('carts.update');
+    Route::post('/delete/{id}', 'Frontend\CartController@destroy')->name('carts.delete');
+
+});
+
+Route::group(['prefix' => 'checkout'], function () {
+    Route::get('/', 'Frontend\CheckoutController@index')->name('checkout');
+    Route::post('/store', 'Frontend\CheckoutController@store')->name('checkout.store');
 
 });
