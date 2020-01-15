@@ -1,11 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
- */
-
 //User Paths
 Route::get('/', 'Frontend\producthousebdController@index')->name('index');
 
@@ -13,7 +7,6 @@ Route::get('/', 'Frontend\producthousebdController@index')->name('index');
 Route::get('/category/{id}', 'Frontend\producthousebdController@category')->name('category');
 
 //Search
-
 Route::get('/search', 'Frontend\SearchController@search')->name('search');
 
 //user Auth
@@ -31,9 +24,7 @@ Route::group(['prefix' => '/user'], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
     Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
-
     Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
-
 });
 
 /*Admin Routes*/
@@ -49,6 +40,15 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/editCategory/{id}', 'Backend\ProductController@editcategory')->name('admin.editcategory');
     Route::post('/updateCategory/{id}', 'Backend\ProductController@updatecategory')->name('admin.editCategory.update');
     Route::get('/deleteCategory/{id}', 'Backend\ProductController@deleteCategory')->name('admin.deleteCategory');
+
+    //-------------Sub Categories
+
+    Route::get('/addSubCategory', 'Backend\SubcategoryController@create')->name('admin.addSubCategory');
+    Route::post('/addSubCategory', 'Backend\SubcategoryController@store')->name('admin.addSubCategory.store');
+    Route::get('/viewSubCategory', 'Backend\SubcategoryController@index')->name('admin.viewSubCategories');
+    Route::get('/editSubCategory/{id}', 'Backend\SubcategoryController@edit')->name('admin.editSubCategory');
+    Route::post('/updateSubCategory/{id}', 'Backend\SubcategoryController@update')->name('admin.editSubCategory.update');
+    Route::get('/deleteSubCategory/{id}', 'Backend\SubcategoryController@delete')->name('admin.deleteSubCategory');
 
     /*  ------------ Products ------------- */
     Route::get('/addProduct', 'Backend\ProductController@showProductForm')->name('admin.addProduct');
@@ -102,11 +102,10 @@ Route::group(['prefix' => 'carts'], function () {
     Route::post('/store', 'Frontend\CartController@store')->name('carts.store');
     Route::post('/update/{id}', 'Frontend\CartController@update')->name('carts.update');
     Route::post('/delete/{id}', 'Frontend\CartController@destroy')->name('carts.delete');
-
 });
 
+//Checkout Routes
 Route::group(['prefix' => 'checkout'], function () {
     Route::get('/', 'Frontend\CheckoutController@index')->name('checkout');
     Route::post('/store', 'Frontend\CheckoutController@store')->name('checkout.store');
-
 });

@@ -15,12 +15,12 @@ class ProductImages extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('product_code');
+            $table->unsignedBigInteger('product_id');
             $table->string('image');
             $table->timestamps();
 
-            $table->foreign('product_code')
-                ->references('product_code')->on('products')
+            $table->foreign('product_id')
+                ->references('id')->on('products')
                 ->onDelete('cascade');
         });
 

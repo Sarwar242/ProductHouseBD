@@ -13,6 +13,13 @@
                 <li><a href="{{route('admin.viewCategories')}}">View</a></li>
             </ul>
         </li>
+        <li class="submenu @yield('act2.2','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
+                <span>Sub Categories</span> <span class="label label-important">2</span></a>
+            <ul>
+                <li><a href="{{route('admin.addSubCategory')}}">Add</a></li>
+                <li><a href="{{route('admin.viewSubCategories')}}">View</a></li>
+            </ul>
+        </li>
         <li class="submenu @yield('act3','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
                 <span>Products</span> <span class="label label-important">{{$pronum ?? '' }}</span></a>
             <ul>
