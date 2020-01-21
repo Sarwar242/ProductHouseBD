@@ -75,7 +75,6 @@ active
                             <div class="control-group">
                                 <label class="control-label">Product Sub-Category</label>
                                 <select name="subcategory" id="subcategory_id" style="margin:20px;">
-
                                 </select>
                             </div>
                             <div class="control-group">
@@ -153,13 +152,13 @@ function transferComplete(data) {
 $("#category_id").change(function() {
     var category = $("#category_id").val();
     $("#subcategory_id").html("");
-    var option = "";
+    var option = " ";
     //send an ajax req to servers
     $.get("http://127.0.0.1:8000/admin/get-subcategories/" +
         category,
         function(data) {
-            data = JSON.parse(data);
-            data.forEach(function(element) {
+            var d = JSON.parse(data);
+            d.forEach(function(element) {
                 console.log(element.id);
                 option += "<option value='" + element.id + "'>" + element.name + "</option>";
             });

@@ -62,7 +62,7 @@ Route::group(['prefix' => '/admin'], function () {
 
     //Api daynamic Sub-Category
     Route::get('/get-subcategories/{id}', function ($id) {
-        return App\Models\Subcategory::where('category_id', $id)->get();
+        return json_encode(App\Models\Subcategory::where('category_id', $id)->get());
     });
 
     /**----------------Admins -------------------- */
