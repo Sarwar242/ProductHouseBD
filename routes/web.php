@@ -60,6 +60,11 @@ Route::group(['prefix' => '/admin'], function () {
     Route::get('/deleteProduct/{id}', 'Backend\ProductController@deleteProduct')->name('admin.deleteProduct');
     Route::get('/deleteProductImage/{id}', 'Backend\ProductController@deleteProductImage')->name('admin.product.deleteimage');
 
+    //Api daynamic Sub-Category
+    Route::get('/get-subcategories/{id}', function ($id) {
+        return App\Models\Subcategory::where('category_id', $id)->get();
+    });
+
     /**----------------Admins -------------------- */
     Route::get('/admins', 'Backend\AdminController@admins')->name('admin.admins');
     Route::get('/addAdmin', 'Backend\AdminController@showAdminForm')->name('admin.addAdmin');

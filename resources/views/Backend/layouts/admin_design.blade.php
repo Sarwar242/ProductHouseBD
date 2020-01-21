@@ -27,6 +27,9 @@
     @yield('content')
 
     @include('Backend.layouts.admin_footer')
+    @yield('scripts')
+
+
 
     <!-- from from_validation.html -->
 

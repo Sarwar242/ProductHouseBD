@@ -63,7 +63,7 @@ active
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Product Category</label>
-                                <select name="category" style="margin:20px;">
+                                <select name="category" id="category_id" style="margin:20px;">
                                     <option value="" selected='selected' disabled>
                                         Select a Category</option>
                                     @foreach($categories as $category)
@@ -72,7 +72,12 @@ active
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="control-group">
+                                <label class="control-label">Product Sub-Category</label>
+                                <select name="subcategory" id="subcategory_id" style="margin:20px;">
 
+                                </select>
+                            </div>
                             <div class="control-group">
                                 <label class="control-label">Product Description</label>
                                 <div class="controls">
@@ -140,4 +145,28 @@ function transferComplete(data) {
 }
 </script>
 
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script>
+<script>
+$("#category_id").change(function() {
+    var category = $("#category_id").val();
+    $("#subcategory_id").html("");
+    var option = "";
+    //send an ajax req to servers
+    $.get("http://127.0.0.1:8000/admin/get-subcategories/" +
+        category,
+        function(data) {
+            data = JSON.parse(data);
+            data.forEach(function(element) {
+                console.log(element.id);
+                option += "<option value='" + element.id + "'>" + element.name + "</option>";
+            });
+
+            $("#subcategory_id").html(option);
+        });
+
+});
+</script>
 @endsection

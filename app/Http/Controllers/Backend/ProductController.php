@@ -18,8 +18,10 @@ class ProductController extends Controller
         $products = Product::all();
         $pronum = $products->count();
 
-        return view('Backend.categories.add_category')->with('pronum', $pronum);
+        return view('Backend.categories.add_category')
+            ->with('pronum', $pronum);
     }
+
     public function categoryStore(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -29,20 +31,21 @@ class ProductController extends Controller
                 ->with('flash_message_success',
                     'One category added successfully!!! If you wanna see go to your "categories view" page.');
         }
-
     }
 
     public function categoryShow()
     {
         $categories = Category::get();
-        return view('Backend.categories.view_categories')->with(compact('categories'));
+        return view('Backend.categories.view_categories')
+            ->with(compact('categories'));
     }
 
     public function editcategory($id)
     {
         $cd = Category::find($id);
         session()->flash('flash_message_success', 'You can edit this category now!');
-        return view('Backend.categories.edit_category')->with('category', $cd);
+        return view('Backend.categories.edit_category')
+            ->with('category', $cd);
     }
 
     public function updatecategory(Request $request, $id)
@@ -63,8 +66,8 @@ class ProductController extends Controller
         $cd->save();
         $categories = Category::all();
         session()->flash('flash_message_success', 'You have updated a category successfully!');
-        return redirect()->route('admin.viewCategories')->with(compact('categories'));
-
+        return redirect()->route('admin.viewCategories')
+            ->with(compact('categories'));
     }
 
     public function deleteCategory($id)
@@ -127,7 +130,6 @@ class ProductController extends Controller
                 ->with('flash_message_success',
                     'One Product added successfully!!! If you wanna see go to your "Products view" page.');
         }
-
     }
 
     public function productShow()
