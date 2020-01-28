@@ -143,22 +143,20 @@ body {
 .side-menu ul li ul {
     display: none;
     z-index: 10;
-    top: 77px;
 }
 
 .side-menu ul li:hover ul {
     display: block;
-    height: 400px;
+    padding: 4px 80px 10px 10px;
+    position: relative;
     margin-left: 14%;
-    padding: 0 100px 10px 10px;
-    position: fixed;
     background: #ececec;
     box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5);
 }
 
 .fa-angle-right {
     margin-top: 4px;
-    margin-right: 8px;
+    margin-right: 10px;
     float: right;
 }
 #menu-btn,
@@ -195,14 +193,28 @@ body {
     width: 85%;
     margin-left: 15%;
     padding: 0 18px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    justify-content: center !important;
+    align-items: center !important;
 }
-
+.carousel-item {
+    position: relative !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    height: 80vh !important;
+}
+.carousel-item img {
+    width: 100%;
+}
 .carousel {
     box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.5);
 }
 
 .carousel-indicators {
+    position: absolute;
     z-index: 1 !important;
+    top: 70vh;
 }
 
 @media only screen and (max-width: 980px) {
@@ -252,6 +264,31 @@ body {
     display: flex;
     margin-top: -4px;
     margin-left: 170px;
+}
+
+.title-box2 {
+    cursor: pointer;
+    background: rgb(81, 255, 0);
+    color: #fff;
+    width: 100px;
+    padding: 4px 10px;
+    height: 25px;
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.title-box2 h4 {
+    font-size: 16px;
+}
+
+.title-box2::after {
+    content: "";
+    border-bottom: 25px solid rgb(81, 255, 0);
+    border-right: 35px solid transparent;
+    position: absolute;
+    display: flex;
+    margin-top: -4px;
+    margin-left: 90px;
 }
 
 /*-------------------Product Top CSS------------------------------*/
@@ -434,4 +471,24 @@ body {
 }
 .product-description hr {
     margin-bottom: 50px;
+}
+
+.hidden {
+    display: none;
+}
+
+.appearance {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Some browsers will not display the caret when using calc, so we put the fallback first */
+    background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png")
+        white no-repeat 98.5% !important; /* !important used for overriding all other customisations */
+    background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png")
+        white no-repeat calc(100% - 10px) !important; /* Better placement regardless of input width */
+}
+input {
+    padding-top: 0;
+    padding-left: 0;
+    line-height: 1em;
 }

@@ -7,15 +7,7 @@
 <section class="on-sale">
     <div class="container">
         <div class="title-box">
-            <h2>{{$category->name}}</h2>
-        </div>
-        <h4>--------------------------------------------------------------------------------------------------------------------------------
-        </h4>
-
-        @foreach($category->subcategories as $subcategory)
-        <div class="title-box2">
-            <h4 onclick="window.location.href = '{{route('subcategory',$subcategory->id)}}';">{{$subcategory->name}}
-            </h4>
+            <h2>{{$subcategory->category->name}} || {{$subcategory->name}}</h2>
         </div>
         <div class="row">
             @foreach($subcategory->products as $product)
@@ -51,7 +43,6 @@
             </div>
             @endforeach
         </div>
-        @endforeach
     </div>
 </section>
 

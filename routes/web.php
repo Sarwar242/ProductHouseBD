@@ -6,8 +6,13 @@ Route::get('/', 'Frontend\producthousebdController@index')->name('index');
 //Category
 Route::get('/category/{id}', 'Frontend\producthousebdController@category')->name('category');
 
+//Sub-Category
+Route::get('/subcategory/{id}', 'Frontend\producthousebdController@subcategory')->name('subcategory');
+
 //Search
 Route::get('/search', 'Frontend\SearchController@search')->name('search');
+//Single Product
+Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
 
 //user Auth
 Auth::routes();
@@ -23,7 +28,7 @@ Route::group(['prefix' => '/user'], function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
-    Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDetails')->name('product.details');
+
     Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
 });
 
@@ -100,9 +105,19 @@ Route::group(['prefix' => '/admin'], function () {
 
 });
 
+//Order Routes
+Route::group(['prefix' => '/orders'], function () {
+    Route::get('/', 'Backend\OrderController@index')->name('admin.orders');
+    Route::get('/show/{id}', 'Backend\OrderController@show')->name('admin.order.show');
+    Route::get('/delete/{id}', 'Backend\OrderController@delete')->name('admin.order.delete2');
+    Route::post('/delete/{id}', 'Backend\OrderController@delete')->name('admin.order.delete');
+    Route::post('/completed/{id}', 'Backend\OrderController@completed')->name('admin.order.completed');
+    Route::post('/paid/{id}', 'Backend\OrderController@paid')->name('admin.order.paid');
+});
+
 //Cart Routes
 
-Route::group(['prefix' => 'carts'], function () {
+Route::group(['prefix' => '/carts'], function () {
     Route::get('/', 'Frontend\CartController@index')->name('carts');
     Route::post('/store', 'Frontend\CartController@store')->name('carts.store');
     Route::post('/update/{id}', 'Frontend\CartController@update')->name('carts.update');
@@ -113,4 +128,11 @@ Route::group(['prefix' => 'carts'], function () {
 Route::group(['prefix' => 'checkout'], function () {
     Route::get('/', 'Frontend\CheckoutController@index')->name('checkout');
     Route::post('/store', 'Frontend\CheckoutController@store')->name('checkout.store');
+});
+
+//Dynamic Sliders Routes
+
+Route::group(['prefix' => '/sliders'], function () {
+    Route::get('/', 'Backend\SliderController@index')->name('admin.sliders');
+    Route::post('/store', 'Backend\SliderController@store')->name('slider.store');
 });

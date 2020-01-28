@@ -27,6 +27,7 @@ class CartController extends Controller
         ]);
         $check = Cart::Where('user_id', Auth::id())
             ->where('product_id', $request->product_id)
+            ->where('order_id', null)
             ->first();
 
         if (!is_null($check)):

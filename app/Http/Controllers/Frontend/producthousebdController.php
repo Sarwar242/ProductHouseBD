@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,11 +71,19 @@ class producthousebdController extends Controller
     public function category($id)
     {
         $category = Category::find($id);
-        $product = Product::where('category_id', '=', $id)
-            ->orderBy('created_at')
-            ->get();
-        return view('Frontend.category')->with('products', $product)
-            ->with('category', $category);
+        $categories = Category::all();
+        return view('Frontend.category')
+            ->with('category', $category)
+            ->with('categories', $categories);
+
+    }
+
+    public function subcategory($id)
+    {
+        $subcategory = Subcategory::find($id);
+
+        return view('Frontend.subcategory')
+            ->with('subcategory', $subcategory);
 
     }
 

@@ -1,18 +1,23 @@
 @extends('Frontend.layouts.master')
+
+
 @section('contents')
 <section class="header">
     <div class="side-menu" id="side-menu">
         <h4 style="color:green">&nbspCategories</h4>
         <ul>
             @foreach($categories as $category)
-            <li onclick="window.location.href = '{{route('category',$category->id)}}';"> {{$category->name}}<i
+            <li>
+                <span
+                    onclick="window.location.href = '{{route('category',$category->id)}}';">{{$category->name}}</span><i
                     class="fa fa-angle-right"></i>
-
-                <!-- <ul>
-                    <li>Submenu 1</li>
-                    <li>Submenu 1</li>
-                    <li>Submenu 1</li>
-                </ul> -->
+                <ul>
+                    @foreach($category->subcategories as $subcategory)
+                    <li
+                        onclick="event.preventDefault();window.location.href = '{{route('subcategory',$subcategory->id)}}';">
+                        {{$subcategory->name}}</li>
+                    @endforeach
+                </ul>
             </li>
             @endforeach
         </ul>
@@ -41,6 +46,7 @@
                 <div class="carousel-item">
                     <img src="{{ asset('frontend/images/slide7.jpg') }}" class="d-block w-100">
                 </div>
+
                 <div class="carousel-item">
                     <img src="{{ asset('frontend/images/slide8.jpg') }}" class="d-block w-100">
                 </div>
@@ -57,7 +63,7 @@
                 <li data-target="#slider" data-slide-to="6"></li>
                 <li data-target="#slider" data-slide-to="7"></li>
                 <li data-target="#slider" data-slide-to="8"></li>
-                <li data-target="#slider" data-slide-to="9"></li>
+
             </ol>
         </div>
     </div>
@@ -207,5 +213,10 @@
         </div>
     </div>
 </section>
-
+@if(Session::has('success_order'))
+<script type="text/javascript">
+alertify.set('notifier', 'position', 'top-center');
+alertify.success('Your order has taken successfully ,Please wait Admin will contact you!');
+</script>
+@endif
 @endsection

@@ -11,12 +11,12 @@
                         @foreach($product->productImages as $productImage)
 
                         @if($loop->index==0)
-                        <div class="carousel-item active" style="width:400px; height:350px;">
+                        <div class="carousel-item active" style="max-width:350px; max-height:350px;">
                             <img style="padding:2px; width:100%;" src="{{ asset('storage')}}/{{$productImage->image}}"
                                 class="d-block">
                         </div>
                         @else
-                        <div class="carousel-item" style="width:400px; height:400px;">
+                        <div class="carousel-item" style="max-width:350px; max-height:250px;">
                             <img style="padding:2px;  width:100%;" src="{{ asset('storage')}}/{{$productImage->image}}"
                                 class="d-block">
                         </div>
@@ -53,9 +53,11 @@
                 @endif
                 <p><b>Condition:</b> New</p>
                 <p><b>Brand:</b> XYZ Company</p>
-                <label for="quantity">Quantity:</label>
-                <input type="number" name="quantity" placeholder="1" min="1" max="{{$product->product_quantity}}">
-                <button type="button" class="btn btn-primary">Add to Cart</button>
+                <!-- <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" placeholder="1" min="1" max="{{$product->product_quantity}}"> -->
+                <input type="hidden" name="product_id" value="{{$product->id}}">
+                <button type="button" class="btn btn-secondary" title="Add to Cart"
+                    onclick="addToCart({{$product->id}});"><i class="fa fa-shopping-cart"></i></button>
                 <a href="{{route('product.orderform',$product->id)}}" class="btn btn-success">Buy Now</a>
             </div>
         </div>

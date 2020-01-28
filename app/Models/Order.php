@@ -10,14 +10,18 @@ class Order extends Model
     //
 
     public $fillable = [
-        'user_id', 'product_id', 'ip_address', 'email',
-        'phone', 'name', 'shipping_address', 'nearest_city',
-        'payment_method', 'is_paid', 'order_status',
+        'user_id', 'payment_id', 'ip_address', 'email',
+        'phone', 'name', 'shipping_address', 'transaction_id',
+        'message', 'is_paid', 'order_status',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
     }
     public function carts()
     {

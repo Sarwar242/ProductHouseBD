@@ -27,6 +27,7 @@ class Cart extends Model
     public static function totalItems()
     {
         $cartcnt = Cart::where('user_id', Auth::id())
+            ->where('order_id', null)
             ->count();
 //App\Models\Cart::totalItems()
         return $cartcnt;
@@ -34,6 +35,7 @@ class Cart extends Model
     public static function totalCarts()
     {
         $cart = Cart::where('user_id', Auth::id())
+            ->where('order_id', null)
             ->get();
 
         return $cart;

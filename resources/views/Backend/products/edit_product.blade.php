@@ -63,13 +63,24 @@ active
                             </div>
                             <div class="control-group">
                                 <label class="control-label">Product Category</label>
-                                <select name="category" style="margin:20px;">
-                                    <option value="$product->category->id" selected>
-                                        {{$product->category->name}}</option>
+                                <select name="category" id="category_id" style="margin:20px;">
                                     @foreach($categories as $category)
+
+                                    @if($product->category->id==$category->id)
+                                    <option value="{{ $category->id }}" selected>
+                                        {{$category->name}}</option>
+                                    @else
                                     <option value="{{ $category->id }}">
                                         {{ $category->name}}</option>
+                                    @endif
                                     @endforeach
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">Product Sub-Category</label>
+                                <select name="subcategory" id="subcategory_id" style="margin:20px;">
+                                    <option value="{{$product->subcategory->id}}" selected>
+                                        {{$product->subcategory->name}}</option>
                                 </select>
                             </div>
 
@@ -109,7 +120,7 @@ active
                                     <div class="span3" style="margin:5px;">
                                         <img style="width:200px; height:150px; "
                                             src="{{ asset('storage')}}/{{ ($image->image) }}">
-                                        <a href="{{route('admin.product.deleteimage',$image->id)}}" >Remove</a>
+                                        <a href="{{route('admin.product.deleteimage',$image->id)}}">Remove</a>
                                     </div>
                                     @endforeach
                                 </div>
@@ -162,4 +173,28 @@ function transferComplete(data) {
 }
 </script>
 
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script>
+<script>
+$("#category_id").change(function() {
+    var category = $("#category_id").val();
+    $("#subcategory_id").html("");
+    var option = " ";
+    //send an ajax req to servers
+    $.get("http://127.0.0.1:8000/admin/get-subcategories/" +
+        category,
+        function(data) {
+            var d = JSON.parse(data);
+            d.forEach(function(element) {
+                console.log(element.id);
+                option += "<option value='" + element.id + "'>" + element.name + "</option>";
+            });
+
+            $("#subcategory_id").html(option);
+        });
+
+});
+</script>
 @endsection

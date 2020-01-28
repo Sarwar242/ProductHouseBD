@@ -1,6 +1,9 @@
 @extends('Frontend.layouts.master')
 @section('contents')
-<div class="container" style="bottom:200px;">
+<div class="container margin-top-20">
+    <h2>My Cart Items</h2>
+    @if(App\Models\Cart::totalItems()>0)
+    <div class="container" style="bottom:200px;">
     <table class="table table-hover mt-20">
         <thead>
             <tr>
@@ -41,16 +44,16 @@
                 <td>
                     <form action="{{route('carts.update',$cart->id)}}" class="form-inline" method="post">
                         @csrf
-                        <input type="number" value="{{$cart->product_quantity}}" min="1" name="product_quantity"
+                        <input type="number" onChange="increase()" value="{{$cart->product_quantity}}" style="border-radius: 15px !important;" min="1" max="{{$cart->product->product_quantity}}" name="product_quantity"
                             class="form-control" />
-                        <button type="submit" class="btn btn-success ml-1">Update</button>
+                        <button type="submit" style="border-radius: 15px !important; margin-top:4px;"  class="btn btn-success ml-1">Update</button>
                     </form>
                 </td>
                 <td>
                     <form action="{{route('carts.delete',$cart->id)}}" class="form-inline" method="post">
                         @csrf
                         <input type="hidden" name="cart_id" />
-                        <button type="submit" class="btn btn-danger">Remove</button>
+                        <button  style="border-radius: 15px !important; margin-top:4px;"   type="submit" class="btn btn-danger">Remove</button>
                     </form>
                 </td>
 
@@ -58,7 +61,7 @@
             @endforeach
 
             <tr>
-                <td colspan="4"></td>
+                <td colspan="2"></td>
                 <td colspan="2"> Total Amount:</td>
                 <td> {{$total_price}}</td>
             </tr>
@@ -66,10 +69,25 @@
     </table>
     <div class="float-right">
         <a href="{{route('index')}}" class="btn btn-info btn-lg">Continue Shopping</a>
-        <a href="#" class="btn btn-warning btn-lg">Checkout</a>
+        <a href="{{route('checkout')}}" class="btn btn-warning btn-lg">Checkout</a>
     </div>
     <div class="mb-20" style="height:40px;">
 
     </div>
 </div>
+    @else
+    <div class="alert alert-warning">
+    <strong>There is no item in your cart.</strong>
+    <br>
+    <a href="{{route('index')}}" class="btn btn-info btn-lg">Continue Shopping</a>
+    </div>
+    @endif
+</div>
 @endsection
+
+
+<script>
+function increase(){
+
+}
+</script>

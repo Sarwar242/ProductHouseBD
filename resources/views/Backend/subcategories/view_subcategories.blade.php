@@ -19,7 +19,7 @@ active
                         <h5>Sub-Categories List</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered data-table">
+                        <table id="dataTable" class="table table-bordered data-table">
                             <thead>
                                 <tr>
                                     <th>Serial</th>

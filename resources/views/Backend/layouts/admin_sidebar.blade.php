@@ -1,6 +1,6 @@
 <!--sidebar-menu-->
 <div id="sidebar">
-    <a href="#" class="visible-phone">
+    <a href="{{route('homeadmin')}}" class="visible-phone">
         <i class="icon icon-home"></i> Dashboard</a>
 
     <ul>
@@ -30,7 +30,7 @@
         <li class="submenu @yield('act4','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
                 <span>Orders</span> <span class="label label-important">0</span></a>
             <ul>
-                <li><a href="{{route('admin.viewOrders')}}">View</a></li>
+                <li><a href="{{route('admin.orders')}}">View</a></li>
                 <li><a href="{{route('admin.viewOrders')}}">Delivered</a></li>
             </ul>
         </li>

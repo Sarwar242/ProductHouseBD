@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -100,6 +99,7 @@ class ProductController extends Controller
             "name" => 'required',
             "code" => 'required|max:10',
             "category" => 'required',
+            "subcategory" => 'required',
             "price" => 'required',
             "description" => 'required',
         ]);
@@ -109,19 +109,22 @@ class ProductController extends Controller
             $product->product_name = $request->name;
             $product->product_code = $request->code;
             $product->category_id = $request->category;
+            $product->subcategory_id = $request->subcategory;
+
             $product->product_price = $request->price;
+
             $product->product_details = $request->description;
             $product->product_discount = $request->discount;
             $product->product_quantity = $request->quantity;
             $product->save();
-
+            $pid = Product::all()->last()->id;
             $files = $request->file('image');
             if (!empty($files)):
                 foreach ($files as $file):
                     $path = $file->store('uploads', 'public');
                     $imagetbl = new ProductImage;
                     $imagetbl->image = $path;
-                    $imagetbl->product_code = $request->code;
+                    $imagetbl->product_id = $pid;
                     $imagetbl->save();
                 endforeach;
             endif;
@@ -153,6 +156,7 @@ class ProductController extends Controller
             "name" => 'required',
             "description" => 'required',
             "category" => 'required',
+            "subcategory" => 'required',
             "price" => 'required',
             "code" => 'required',
         ]);
@@ -160,6 +164,8 @@ class ProductController extends Controller
         $product->product_name = $request->name;
         $product->product_code = $request->code;
         $product->category_id = $request->category;
+        $product->subcategory_id = $request->subcategory;
+
         $product->product_price = $request->price;
         $product->product_details = $request->description;
         $product->product_discount = $request->discount;
@@ -173,7 +179,7 @@ class ProductController extends Controller
                 $path = $file->store('uploads', 'public');
                 $imagetbl = new ProductImage;
                 $imagetbl->image = $path;
-                $imagetbl->product_code = $request->code;
+                $imagetbl->product_id = $id;
                 $imagetbl->save();
             }
 
@@ -187,18 +193,13 @@ class ProductController extends Controller
     public function deleteProduct($id)
     {
         $pro = Product::find($id);
-        $pc = $pro->product_code;
         if (!empty($pro->productImages->image)):
             foreach ($pro->productImages->image as $img):
                 Storage::delete($img);
             endforeach;
         endif;
-
-        DB::table('product_images')->where('product_code', '=', $pc)->delete();
-
         $pro->delete();
         session()->flash('flash_message_success', 'The Product has been deleted Successfully!');
-
         $products = Product::all();
         return redirect()->route('admin.viewProducts')->with(compact('products'));
 

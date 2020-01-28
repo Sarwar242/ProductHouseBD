@@ -19,13 +19,14 @@ active
                         <h5>Products List</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <table class="table table-bordered data-table">
+                        <table id="dataTable" class="table table-bordered data-table">
                             <thead>
                                 <tr>
                                     <th>Products Serial</th>
                                     <th>Name</th>
                                     <th>Code</th>
                                     <th>Category</th>
+                                    <th>Sub-Category</th>
                                     <th>Description</th>
                                     <th>Price</th>
                                     <th>Discount</th>
@@ -42,6 +43,7 @@ active
                                     <td>{{$product->product_name}}</td>
                                     <td>{{$product->product_code}}</td>
                                     <td>{{$product->category->name}}</td>
+                                    <td>{{$product->subcategory->name}}</td>
                                     <td>{{$product->product_details}}</td>
                                     <td>{{$product->product_price}}</td>
                                     <td>{{$product->product_discount}}</td>
