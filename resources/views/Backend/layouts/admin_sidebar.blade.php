@@ -34,6 +34,14 @@
                 <li><a href="{{route('admin.viewOrders')}}">Delivered</a></li>
             </ul>
         </li>
+        <li class="submenu @yield('act7','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
+                <span>Sliders</span> <span class="label label-important">0</span></a>
+            <ul>
+                <li><a href="{{route('admin.sliders')}}">View</a></li>
+                <li><a href="{{route('admin.slider.add')}}">Add</a></li>
+
+            </ul>
+        </li>
         <li class="submenu @yield('act5','inactive')">
             <a href="#"><i class="icon icon-th-list"></i>
                 <span>Admins</span></a>

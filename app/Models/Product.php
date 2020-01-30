@@ -16,11 +16,15 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
-
+    public function slider()
+    {
+        return $this->hasOne(Slider::class);
+    }
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
-    }public function subcategory()
+    }
+    public function subcategory()
     {
         return $this->belongsTo(Subcategory::class, 'subcategory_id');
     }

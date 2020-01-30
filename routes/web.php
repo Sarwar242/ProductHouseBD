@@ -134,5 +134,9 @@ Route::group(['prefix' => 'checkout'], function () {
 
 Route::group(['prefix' => '/sliders'], function () {
     Route::get('/', 'Backend\SliderController@index')->name('admin.sliders');
-    Route::post('/store', 'Backend\SliderController@store')->name('slider.store');
+    Route::get('/new', 'Backend\SliderController@create')->name('admin.slider.add');
+    Route::post('/store', 'Backend\SliderController@store')->name('admin.slider.store');
+    Route::get('/edit/{id}', 'Backend\SliderController@edit')->name('admin.slider.edit');
+    Route::get('/delete/{id}', 'Backend\SliderController@delete')->name('admin.slider.delete');
+    Route::post('/update/{id}', 'Backend\SliderController@update')->name('admin.slider.update');
 });

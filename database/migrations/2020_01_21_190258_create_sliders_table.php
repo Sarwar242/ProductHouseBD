@@ -19,8 +19,14 @@ class CreateSlidersTable extends Migration
             $table->string('image');
             $table->string('button_text')->nullable();
             $table->string('button_link')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             $table->unsignedTinyInteger('priority')->default(10);
             $table->timestamps();
+
+            $table->foreign('product_id')
+                ->references('id')->on('products')
+                ->onDelete('cascade');
+
         });
     }
 

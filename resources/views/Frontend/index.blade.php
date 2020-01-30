@@ -25,45 +25,29 @@
     <div class="slider">
         <div id="slider" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{ asset('frontend/images/slide1.jpg') }}" class="d-block w-100">
+                @foreach($sliders as $slider)
+                <div class="carousel-item {{$loop->index==0 ? 'active' : ''}}">
+                    <img src="{{ asset('storage')}}/{{$slider->image}}" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        @if(!is_null($slider->button_link))
+                        <h5 onclick="window.open( '{{$slider->button_link}}' );">{{$slider->title}}</h5>
+                        <p onclick="window.open( '{{$slider->button_link}}' );">
+                            {{$slider->button_text}}</p>
+                        @else
+                        <h5 onclick="window.location.href = '{{route('product.details',$slider->product_id)}}';">
+                            {{$slider->title}}</h5>
+                        <p onclick="window.location.href = '{{route('product.details',$slider->product_id)}}';">
+                            Click here</p>
+                        @endif
+                    </div>
                 </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide2.jpg') }}" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide3.jpg') }}" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide4.jpg') }}" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide5.jpg') }}" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide6.jpg') }}" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide7.jpg') }}" class="d-block w-100">
-                </div>
-
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide8.jpg') }}" class="d-block w-100">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('frontend/images/slide9.jpg') }}" class="d-block w-100">
-                </div>
+                @endforeach
             </div>
             <ol class="carousel-indicators">
-                <li data-target="#slider" data-slide-to="0" class="active"></li>
-                <li data-target="#slider" data-slide-to="1"></li>
-                <li data-target="#slider" data-slide-to="2"></li>
-                <li data-target="#slider" data-slide-to="4"></li>
-                <li data-target="#slider" data-slide-to="5"></li>
-                <li data-target="#slider" data-slide-to="6"></li>
-                <li data-target="#slider" data-slide-to="7"></li>
-                <li data-target="#slider" data-slide-to="8"></li>
-
+                @foreach($sliders as $slider)
+                <li data-target="#slider" data-slide-to="{{$loop->index}}" class="{{$loop->index==0 ? 'active' : ''}}">
+                </li>
+                @endforeach
             </ol>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Slider;
 use App\Models\Subcategory;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,13 +19,15 @@ class producthousebdController extends Controller
     {
         $product = Product::all();
         $categories = Category::all();
+        $sliders = Slider::orderBy('priority', 'asc')->get();
         $users = DB::table('users');
         $new = Product::orderBy('created_at', 'desc')
             ->limit(4)
             ->get();
 
         return view('Frontend.index')->with('products', $product)
-            ->with('categories', $categories)->with('new', $new);
+            ->with('categories', $categories)->with('new', $new)
+            ->with('sliders', $sliders);
     }
     public function productDetails($id)
     {
