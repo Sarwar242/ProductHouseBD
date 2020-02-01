@@ -137,7 +137,29 @@ active
                                 </tbody>
                             </table>
                             @endif
+                            <hr>
 
+                            <hr>
+                            <form action="{{route('admin.order.charge',$order->id)}}" method="post">
+                                @csrf
+                                <hr>
+                                <label for="shipping_charge">Shipping Charge</label>
+                                <input type="number" name="shipping_charge" value="{{$order->shipping_charge}}"
+                                    id="shipping_charge">
+                                <br>
+                                <hr>
+                                <label for="custom_discount">Custom Discount</label>
+                                <input type="number" name="custom_discount" value="{{$order->custom_discount}}"
+                                    id="custom_discount">
+                                <br>
+                                <hr>
+                                <input type="submit" value="Update" class="btn btn-warning">
+                                <a style="margin-left:5px;" href="{{ route('admin.order.invoice',$order->id) }}"
+                                    class="btn btn-info" target="_blank">
+                                    Generate Invoice
+                                </a>
+                                <hr>
+                            </form>
                             <hr>
 
                             <form style="display:inline-block !important;"

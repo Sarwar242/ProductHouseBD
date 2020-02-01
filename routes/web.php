@@ -113,6 +113,10 @@ Route::group(['prefix' => '/orders'], function () {
     Route::post('/delete/{id}', 'Backend\OrderController@delete')->name('admin.order.delete');
     Route::post('/completed/{id}', 'Backend\OrderController@completed')->name('admin.order.completed');
     Route::post('/paid/{id}', 'Backend\OrderController@paid')->name('admin.order.paid');
+
+    Route::post('/charge-update/{id}', 'Backend\OrderController@chargeUpdate')->name('admin.order.charge');
+
+    Route::get('/invoice/{id}', 'Backend\OrderController@generateInvoice')->name('admin.order.invoice');
 });
 
 //Cart Routes
@@ -133,7 +137,7 @@ Route::group(['prefix' => 'checkout'], function () {
 //Dynamic Sliders Routes
 
 Route::group(['prefix' => '/sliders'], function () {
-    Route::get('/', 'Backend\SliderController@index')->name('admin.sliders');
+    Route::get('/', 'Backend\SliderController@index')->name('admin.sliders')->middleware('auth:admin');
     Route::get('/new', 'Backend\SliderController@create')->name('admin.slider.add');
     Route::post('/store', 'Backend\SliderController@store')->name('admin.slider.store');
     Route::get('/edit/{id}', 'Backend\SliderController@edit')->name('admin.slider.edit');

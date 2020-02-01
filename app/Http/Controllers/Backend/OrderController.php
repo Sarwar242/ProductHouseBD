@@ -4,9 +4,16 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Http\Request;
+use PDF;
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     public function index()
     {
         $orders = Order::orderBy('id', 'desc')->get();
@@ -54,6 +61,27 @@ class OrderController extends Controller
             $order->save();
         }
         return redirect()->route('admin.order.show', $id);
+    }
+
+    public function chargeUpdate(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->shipping_charge = $request->shipping_charge;
+        $order->custom_discount = $request->custom_discount;
+        $order->save();
+        session()->flash('flash_message_success', 'Order charge and discount has been changed.');
+        return back();
+
+    }
+
+    /**  Generate Invoice */
+    public function generateInvoice($id)
+    {
+        $order = Order::find($id);
+        $pdf = PDF::loadView('Backend.orders.invoice', compact('order'));
+        // //return $pdf->download('invoice.pdf');
+        return $pdf->stream('invoice.pdf');
+        //view('Backend.orders.invoice', compact('order'));
     }
 
 }

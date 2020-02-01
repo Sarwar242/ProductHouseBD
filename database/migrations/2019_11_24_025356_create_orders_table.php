@@ -18,12 +18,15 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('payment_id')->nullable();
+
             $table->string('ip_address')->nullable();
             $table->String('email');
             $table->String('phone');
             $table->String('name');
             $table->text('shipping_address');
-            $table->float('cost', 6, 2)->default('0');;
+            $table->float('cost', 6, 2)->default('0');
+            $table->Integer('shipping_charge')->default(60);
+            $table->Integer('custom_discount')->default(0);
             $table->text('message')->nullable();
             $table->String('transaction_id')->nullable();
             $table->boolean('is_paid')->default(0);

@@ -218,13 +218,17 @@ body {
 .carousel-indicators {
     position: absolute;
     z-index: 1 !important;
-    top: 71vh;
+    top: 74vh;
+}
+.carousel-indicators .active {
+    background-color: white !important;
 }
 .carousel-indicators li {
-    width: 10px !important;
-    height: 10px !important;
-    border: 2px solid orange;
+    width: 15px !important;
+    height: 15px !important;
+    border: 1px solid transparent;
     border-radius: 20px;
+    background-color: orange !important;
 }
 
 @media only screen and (max-width: 980px) {
