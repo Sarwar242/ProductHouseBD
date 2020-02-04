@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Invoice</title>
 </head>
 
 <body>
@@ -19,6 +19,21 @@
                             <h5>View Order: CSL{{$order->id}}</h5>
                         </div>
 
+
+                        @php
+                        $total_price=0;
+                        @endphp
+                        @foreach($order->carts as $cart)
+                        @php
+                        $total_price+= $cart->product->product_price * $cart->product_quantity;
+                        @endphp
+                        @endforeach
+
+                        @php
+                        $total_cost=$total_price+$order->shipping_charge-$order->custom_discount;
+                        @endphp
+
+
                         <div class="widget-content">
                             <h3>Order Informations</h3>
                             <div class="row">
@@ -27,8 +42,13 @@
                                     <p><strong>Orderer Phone: </strong>{{$order->phone}}.</p>
                                     <p><strong>Orderer Email: </strong>{{$order->email}}.</p>
                                     <p><strong>Orderer Shipping Address: </strong>{{$order->shipping_address}}.</p>
-
-                                    <p><strong>Order Total Cost: </strong>{{$order->cost}} .</p>
+                                    <p><strong>Order Discount: </strong>{{$order->custom_discount}} .</p>
+                                    <p><strong>Order Shipping Cost: </strong>{{$order->shipping_charge}} .</p>
+                                    <p><strong>Ordered Products Price: </strong>{{$total_price}} .</p>
+                                    <p><strong>Order Total Cost: </strong>{{$total_cost}} .</p>
+                                    <p><strong>Payment Status: </strong>@if($order->is_paid)
+                                        <span style="color:green"> Paid</span>
+                                        @else<span style="color:Red"> Unpaid</span> @endif</p>
                                     <p><strong>Order Payment Method: </strong>{{$order->payment->name}} .</p>
                                     <p><strong>Order Payment Transaction: </strong>{{$order->transaction_id}} .</p>
                                 </div>
@@ -50,9 +70,7 @@
                                     </thead>
 
                                     <tbody>
-                                        @php
-                                        $total_price=0;
-                                        @endphp
+
 
                                         @foreach($order->carts as $cart)
 
@@ -71,10 +89,6 @@
                                             <td>
                                                 {{$cart->product->product_quantity}}
                                             </td>
-                                            @php
-                                            $total_price+= $cart->product->product_price * $cart->product_quantity;
-                                            @endphp
-
 
                                         </tr>
                                         @endforeach

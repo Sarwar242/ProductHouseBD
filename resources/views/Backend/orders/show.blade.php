@@ -10,6 +10,23 @@ active
 " title="Go to Home" class="tip-bottom"><i class="icon-home"></i>
                 Home</a> > <a href="#">Order</a> > <a href="#" class="current">Show Order</a> </div>
         <h1>#CSL{{$order->id}}</h1>
+        @php
+        $total_price=0;
+        @endphp
+        @foreach($order->carts as $cart)
+        @php
+        $total_price+= $cart->product->product_price * $cart->product_quantity;
+        @endphp
+        @endforeach
+
+        @php
+        $total_cost=$total_price+$order->shipping_charge-$order->custom_discount;
+        @endphp
+
+
+
+
+
 
         @if(Session::has('flash_message_error'))
 
@@ -55,7 +72,9 @@ active
                                 <p><strong>Orderer Shipping Address: </strong>{{$order->shipping_address}}.</p>
                             </div>
                             <div class="col-md-6">
-                                <p><strong>Order Total Cost: </strong>{{$order->cost}} .</p>
+                                <p><strong>Order Total Cost:
+                                    </strong>{{$total_cost}}
+                                    .</p>
                                 <p><strong>Order Payment Method: </strong>{{$order->payment->name}} .</p>
                                 <p><strong>Order Payment Transaction: </strong>{{$order->transaction_id}} .</p>
                             </div>
@@ -77,9 +96,7 @@ active
                                 </thead>
 
                                 <tbody>
-                                    @php
-                                    $total_price=0;
-                                    @endphp
+
 
                                     @foreach($order->carts as $cart)
 
@@ -101,17 +118,18 @@ active
                                         <td>
                                             {{$cart->product->product_price * $cart->product_quantity}}
                                         </td>
-                                        @php
-                                        $total_price+= $cart->product->product_price * $cart->product_quantity;
-                                        @endphp
+
                                         <td>
                                             <form action="{{route('carts.update',$cart->id)}}" class="form-inline"
                                                 method="post">
                                                 @csrf
+                                                <input type="text" name="order_id" style="display:none;"
+                                                    value="{{$order->id}}">
                                                 <input type="number" value="{{$cart->product_quantity}}"
                                                     style="border-radius: 15px !important;" min="1"
                                                     max="{{$cart->product->product_quantity}}" name="product_quantity"
                                                     class="form-control" />
+
                                                 <button type="submit"
                                                     style="border-radius: 15px !important; margin-top:4px;"
                                                     class="btn btn-success ml-1">Update</button>

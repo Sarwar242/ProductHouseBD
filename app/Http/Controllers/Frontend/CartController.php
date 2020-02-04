@@ -51,6 +51,11 @@ class CartController extends Controller
         if (!is_null($cart)) {
             $cart->product_quantity = $request->product_quantity;
             $cart->save();
+            // if (!is_null($cart->order_id)) {
+            //     $quantity = Cart::where('order_id', $request->order_id)->get();
+
+            // }
+
         } else {
             return redirect()->route('carts');
         }
