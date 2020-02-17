@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\Payment;
 use Auth;
@@ -22,10 +23,11 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-
+        $cities = City::all();
         $payments = Payment::orderBy('priority', 'asc')->get();
         return view('Frontend.checkouts')
-            ->with('payments', $payments);
+            ->with('payments', $payments)
+            ->with('cities', $cities);
 
     }
 
@@ -40,17 +42,21 @@ class CheckoutController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'phone_no' => 'required',
+            'email' => 'required',
+            'city_id' => 'required',
             'shipping_address' => 'required',
+            'shipping_charge' => 'required',
             'payment_method' => 'required',
             'transaction_id' => 'sometimes',
+            'message' => 'sometimes',
         ]);
 
         $order = new Order;
         //check transaction id
-        if ($request->payment_method != 'cash_in') {
+        if ($request->payment_method != 'cash_on_delivery') {
             $order->transaction_id = $request->transaction_id;
             if ($request->transaction_id == null || empty($request->transaction_id)) {
-                session()->flash('sticky_error', 'Please give your Transaction Id for your payment confirmation');
+                session()->flash('message', 'Please give your Transaction Id for your payment confirmation');
                 return back();
 
             }
@@ -61,8 +67,9 @@ class CheckoutController extends Controller
         $order->name = $request->name;
         $order->email = $request->email;
         $order->phone = $request->phone_no;
-        $order->cost = $request->cost;
+        $order->city_id = $request->city_id;
         $order->shipping_address = $request->shipping_address;
+        $order->shipping_charge = $request->shipping_charge;
         $order->message = $request->message;
         $order->payment_id = $payment_id;
         if (Auth::check()) {
@@ -79,33 +86,4 @@ class CheckoutController extends Controller
         return redirect()->route('index');
 
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function confirmOrder(Request $request, $id)
-    {
-        $product = Product::find($id);
-        $order = new Order;
-        $order->user_id = Auth::user()->id;
-        $order->product_id = $id;
-        $order->email = $request->email;
-
-        $order->phone = $request->phone;
-        $order->name = $request->name;
-        $order->shipping_address = $request->address;
-
-        $order->nearest_city = $request->city;
-
-        $order->payment_method = $request->payment;
-        $order->payment_status = 0;
-        $order->order_status = 0;
-
-        $order->save();
-        return view('Frontend.confirmationPage')->with('product', $product);
-    }
-
 }

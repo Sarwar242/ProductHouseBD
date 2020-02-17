@@ -84,9 +84,11 @@ class producthousebdController extends Controller
     public function subcategory($id)
     {
         $subcategory = Subcategory::find($id);
+        $categories = Category::all();
 
         return view('Frontend.subcategory')
-            ->with('subcategory', $subcategory);
+            ->with('subcategory', $subcategory)
+            ->with('categories', $categories);
 
     }
 

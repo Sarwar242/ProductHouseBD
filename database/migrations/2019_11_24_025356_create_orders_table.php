@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
             $table->String('phone');
             $table->String('name');
             $table->text('shipping_address');
-            $table->float('cost', 6, 2)->default('0');
+            $table->unsignedBigInteger('city_id')->nullable();
             $table->Integer('shipping_charge')->default(60);
             $table->Integer('custom_discount')->default(0);
             $table->text('message')->nullable();
@@ -36,6 +36,9 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+            $table->foreign('city_id')
+                ->references('id')->on('cities')
+                ->onDelete('set null');
             $table->foreign('payment_id')
                 ->references('id')->on('payments')
                 ->onDelete('cascade');

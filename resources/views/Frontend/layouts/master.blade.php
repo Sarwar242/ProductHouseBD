@@ -8,6 +8,7 @@
     <title>CosmolineBD</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/style.css') }}?ver=1.1">
     <!-- CSS -->
@@ -121,6 +122,10 @@
             <p class="copyright">Developed By Sarwar&nbsp; <i class="fa fa-heart-o"></i> </p>
         </div>
     </section>
+
+    <button id="topbtn"><i class="fas fa-arrow-up"></i></button>
+
+
     @yield('script')
     <script>
     $.ajaxSetup({
@@ -162,10 +167,11 @@
         document.getElementById("close-btn").style.display = "none";
     }
     </script>
-
+    <script type="text/javascript" src="{{asset('js/scroll.js')}} "></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript">
     </script>
     <script type="text/javascript" src="{{asset('js/main.js')}} "></script>
+
 
 </body>
 

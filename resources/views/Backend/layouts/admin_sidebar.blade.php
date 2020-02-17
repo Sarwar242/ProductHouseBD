@@ -6,6 +6,15 @@
     <ul>
         <li class="@yield('act','inactive')"><a href="{{route('homeadmin')}}"><i class="icon icon-home"></i>
                 <span>Dashboard</span></a> </li>
+
+        <li class="submenu @yield('act2_1','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
+                <span>Cities</span> <span class="label label-important">2</span></a>
+            <ul>
+                <li><a href="{{route('admin.addCity')}}">Add</a></li>
+                <li><a href="{{route('admin.viewCities')}}">View</a></li>
+            </ul>
+        </li>
+
         <li class="submenu @yield('act2','inactive')"> <a href="#"><i class="icon icon-th-list"></i>
                 <span>Categories</span> <span class="label label-important">2</span></a>
             <ul>

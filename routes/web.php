@@ -37,6 +37,15 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix' => '/admin'], function () {
     Route::get('/', 'Backend\AdminController@homeadmin')->name('homeadmin');
 
+    //------------- Cities
+
+    Route::get('/addCity', 'Backend\CityController@create')->name('admin.addCity');
+    Route::post('/addCity', 'Backend\CityController@store')->name('admin.addCity.store');
+    Route::get('/viewCities', 'Backend\CityController@index')->name('admin.viewCities');
+    Route::get('/editCity/{id}', 'Backend\CityController@edit')->name('admin.editCity');
+    Route::post('/updateCity/{id}', 'Backend\CityController@update')->name('admin.editCity.update');
+    Route::get('/deleteCity/{id}', 'Backend\CityController@destroy')->name('admin.deleteCity');
+
     //------------- Categories
 
     Route::get('/addCategory', 'Backend\ProductController@showCategoryForm')->name('admin.addCategory');
@@ -68,6 +77,9 @@ Route::group(['prefix' => '/admin'], function () {
     //Api daynamic Sub-Category
     Route::get('/get-subcategories/{id}', function ($id) {
         return json_encode(App\Models\Subcategory::where('category_id', $id)->get());
+    });
+    Route::get('/get-shippingcost/{id}', function ($id) {
+        return json_encode(App\Models\City::where('id', $id)->get());
     });
 
     /**----------------Admins -------------------- */

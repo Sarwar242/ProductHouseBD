@@ -1,7 +1,7 @@
 @extends('Frontend.layouts.master')
 @section('contents')
 
-
+@include('Frontend.layouts.sidemenu')
 <!---------------On Sale Product------------------->
 
 <section class="on-sale">

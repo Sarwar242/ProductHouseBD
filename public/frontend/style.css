@@ -241,6 +241,10 @@ body {
 /*--------------------------featured-categories CSS-------------------------*/
 
 .featured-categories {
+    width: 85% !important;
+    margin-left: 15% !important;
+    justify-content: center !important;
+    align-items: center !important;
     margin: 50px 0;
 }
 .featured-categories img {
@@ -255,7 +259,13 @@ body {
 }
 
 /*-------------------On Sale CSS------------------------------*/
-
+.on-sale {
+    width: 85% !important;
+    margin-left: 15% !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 50px 0;
+}
 .title-box {
     background: orange;
     color: #fff;
@@ -364,12 +374,20 @@ body {
 /*-------------------New Product------------------------------*/
 
 .new-products {
+    width: 85% !important;
+    margin-left: 15% !important;
+    justify-content: center !important;
+    align-items: center !important;
     margin: 50px 0;
 }
 
 /*-------------------website-features------------------------------*/
 
 .website-features {
+    width: 85% !important;
+    margin-left: 15% !important;
+    justify-content: center !important;
+    align-items: center !important;
     margin: 60px 0;
 }
 .website-features img {
@@ -505,4 +523,19 @@ input {
     padding-top: 0;
     padding-left: 0;
     line-height: 1em;
+}
+
+#topbtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50% !important;
+    cursor: pointer;
+    display: none;
 }

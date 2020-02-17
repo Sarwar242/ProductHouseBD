@@ -3,7 +3,7 @@
 
 
 <!---------------On Sale Product------------------->
-
+@include('Frontend.layouts.sidemenu')
 <section class="on-sale">
     <div class="container">
         <div class="title-box">
