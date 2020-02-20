@@ -111,6 +111,11 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $city = City::find($id);
+        $city->delete();
+        return redirect()->route('admin.viewCities')
+            ->with('flash_message_success',
+                'A City has been deleted !!');
+
     }
 }

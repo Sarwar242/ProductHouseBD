@@ -31,7 +31,6 @@ active
                 {!! session('flash_message_success') !!}
             </strong>
         </div>
-
         @endif
     </div>
     <div class="container-fluid">
