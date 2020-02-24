@@ -1,0 +1,191 @@
+
+.chat-container{
+    position: absolute;
+    top: 12vh;
+    font-family: 'OpenSans-Regular';
+    width: calc(100% - 40px);
+    padding-bottom: 20px;
+    margin: 20px;
+    margin-bottom: 120px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: calc(100vh - 12vh - 20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  
+  .uchat-container, .achat-container, .lchat-container {
+    width: 35%;
+    height: 90%;
+    border: 1px solid #2C3E50;
+    border-radius: 5px;
+  }
+  
+  .uchat-container > div, .achat-container > div {
+    margin: 1% 2% 1%;
+    width: 96%;
+  }
+  
+  .uchat-header, .achat-header {
+    height: 13%;
+    border-bottom: 1px solid #2C3E50;
+  }
+  
+  .uchat-texts, .achat-texts {
+    height: 73%;
+    border-bottom: 1px solid #2C3E50;
+    overflow: auto;
+  }
+  
+  .uchat-textbox, .achat-textbox {
+    height: 8%;
+    display: flex;
+  }
+  
+  .uchat-textbox div:first-child, .achat-textbox div:first-child {
+    width: 84%;
+    margin: 0% 1% 0% 0%;
+    box-sizing: border-box;
+  }
+  
+  .uchat-textbox div:nth-child(2), .achat-textbox div:nth-child(2) {
+    width: 15%;
+  }
+  
+  .uchat-textbox input, .uchat-textbox button, .achat-textbox input, .achat-textbox button {
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: 'OpenSans-Regular';
+    font-size: 14px;
+  }
+  
+  .uchat-textbox input, .achat-textbox input {
+    padding: 5px;
+    color: #2C3E50;
+  }
+  
+  .uchat-textbox button, .achat-textbox button {
+    margin: 5px 0px;
+    height: calc(100% - 10px);
+    background-color: #20bf6b;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .uchat-header, .achat-header {
+    font-size: 20px;
+    font-family: 'OpenSans-Italic';
+    box-sizing: border-box;
+    color: #2C3E50;
+    padding: 15px 5px;
+  }
+  
+  .uchat-text-left, .achat-text-left {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 1%;
+  }
+  
+  .uchat-text-right, .achat-text-right {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    margin-bottom: 1%;
+  }
+  
+  .uchat-text-right div:first-child, .uchat-text-left div:first-child, .achat-text-right div:first-child, .achat-text-left div:first-child {
+    max-width: 50%;
+    padding: 5px 10px;
+    font-family: "OpenSans-Regular";
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .uchat-text-left div:first-child, .achat-text-left div:first-child {
+    background-color: #eb3b5a;
+    margin-right: 3%;
+  }
+  
+  .uchat-text-right div:first-child, .achat-text-right div:first-child {
+    background-color: #3867d6;
+    margin-left: 3%;
+  }
+  
+  .uchat-text-right div:nth-child(2), .uchat-text-left div:nth-child(2), .achat-text-right div:nth-child(2), .achat-text-left div:nth-child(2) {
+    font-size: 12px;
+    font-family: "OpenSans-Italic";
+    color: #2C3E50;
+  }
+  
+  .lchat-header, .lchat-body {
+    margin: 1% 2% 0%;
+    width: 96%;
+    box-sizing: border-box;
+  }
+  
+  .lchat-header {
+    background-color: #34495e;
+    font-family: 'OpenSans-Italic';
+    color: white;
+    font-size: 20px;
+    padding: 15px 0px;
+    text-align: center;
+    height: 50px;
+    border-radius: 5px;
+  }
+  
+  .lchat-body {
+    overflow: auto;
+    height: calc(100% - 3% - 50px);
+    margin-bottom: 2%;
+  }  
+  
+  .lchat-each {
+    display: block;
+    display: flex;
+    padding: 15px 5px;
+    justify-content: space-between;
+    color: #2C3E50;
+    font-family: 'OpenSans-SemiBoldItalic';
+    border-bottom: 1px solid #2C3E50;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .achat-count, .uchat-count {
+    position: absolute;
+    background-color:#1abc9c;
+    color: white;
+    z-index: 1000;
+    font-size: 12px;
+    font-family: 'OpenSans-SemiBold';
+    border-radius: 5px;
+    padding: 0px 3px;
+    box-sizing: border-box;
+    width: 20px;
+    height: 18px;
+    border-radius: 30%;
+    text-align: center;
+  }
+  
+  .achat-count {
+    top: 25%;
+    right: 172px;
+  }
+  
+  .uchat-count {
+    top: 25%;
+    right: 11%;
+  }
+  

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/style.css') }}?ver=1.1">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/chat.css') }}?ver=1.1">
     <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <!-- Default theme -->
@@ -102,7 +103,11 @@
                 <div class="col-md-3">
                     <h1>Company</h1>
                     <p>About Us</p>
-                    <p>Contact Us</p>
+                    @if(Auth::check())
+                    <p style="cursor:pointer;" onclick="window.location.href = '{{route('chat')}}';">Contact Us</p>
+                    @else
+                    <p style="cursor:pointer;" onclick="window.location.href = '{{route('login')}}';">Contact Us</p>
+                    @endif
                     <p>Career</p>
                     <p>Affiliate</p>
                 </div>

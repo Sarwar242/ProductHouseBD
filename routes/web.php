@@ -156,3 +156,12 @@ Route::group(['prefix' => '/sliders'], function () {
     Route::get('/delete/{id}', 'Backend\SliderController@delete')->name('admin.slider.delete');
     Route::post('/update/{id}', 'Backend\SliderController@update')->name('admin.slider.update');
 });
+
+//Dynamic Sliders Routes
+
+Route::group(['prefix' => '/chat'], function () {
+    Route::get('/', 'Frontend\ChatController@index')->name('chat');
+    Route::get('/user_messages', function () {
+        return App\Models\Chat::where('user_id', Auth::User()->id)->get();
+    });
+});
