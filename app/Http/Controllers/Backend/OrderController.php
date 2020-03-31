@@ -80,6 +80,7 @@ class OrderController extends Controller
         $order = Order::find($id);
         $pdf = PDF::loadView('Backend.orders.invoice', compact('order'));
         // //return $pdf->download('invoice.pdf');
+        error_reporting(E_ALL ^ E_DEPRECATED);
         return $pdf->stream('invoice.pdf');
         //view('Backend.orders.invoice', compact('order'));
     }
