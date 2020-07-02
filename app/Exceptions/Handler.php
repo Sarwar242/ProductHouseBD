@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
         $class = get_class($exception);
         switch ($class) {
             case 'Illuminate\Auth\AuthenticationException':
-                $guard = array_get($exception->guards(), 0);
+                $guard =  Array($exception->guards(), 0);
 
                 switch ($guard) {
                     case 'admin':
