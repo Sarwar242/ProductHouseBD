@@ -7,7 +7,7 @@
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="#" class="img-responsive" alt="">
+                    <img src="{{ asset('images/Skech.png')}}" class="img-responsive" alt="">
                 </div>
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
@@ -57,6 +57,26 @@
         <div class="col-md-9">
             <div class="profile-content">
                 Email : {{$user->email}}
+            <hr><br>
+                <h1>Notifications:</h1>
+                <hr>
+                @foreach ($user->notifications as $notification)
+                    @php
+                        echo $notification->data['message'];
+                        //echo implode("\n",$notification->data);
+
+                        // For those that might come looking...like me
+
+                        // echo implode("\n",$array);
+                        // else if its multidimensional array
+
+                        // echo implode("\n",array_collapse($array));
+                    @endphp
+                    <hr>
+                @endforeach
+                @php
+                    $user->unreadNotifications->markAsRead();
+                @endphp
             </div>
         </div>
     </div>

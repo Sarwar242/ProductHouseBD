@@ -154,7 +154,7 @@ $("#category_id").change(function() {
     $("#subcategory_id").html("");
     var option = " ";
     //send an ajax req to servers
-    $.get("http://127.0.0.1:8000/admin/get-subcategories/" +
+    $.get(""+myapplink+"/admin/get-subcategories/" +
         category,
         function(data) {
             var d = JSON.parse(data);

@@ -136,7 +136,7 @@ active
                                             </form>
                                         </td>
                                         <td>
-                                            <form action="{{route('admin.order.delete',$order->id)}}"
+                                            <form action="{{route('carts.delete',$cart->id)}}"
                                                 class="form-inline" method="post">
                                                 @csrf
                                                 <input type="hidden" name="cart_id" />

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/style.css') }}?ver=1.1">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/chat.css') }}?ver=1.1">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}?ver=1.1"> --}}
     <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <!-- Default theme -->
@@ -25,7 +26,7 @@
 </head>
 
 <body>
-    <div class="top-nav-bar">
+    <div class="top-nav-bar header-navigation">
         <div class="search-box">
             <i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
             <i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
@@ -132,33 +133,35 @@
 
 
     @yield('script')
-    <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
-    function addToCart(product_id) {
-        $.post("/carts/store", {
-                product_id: product_id
-            })
-            .done(function(data) {
-                data = JSON.parse(data);
-                if (data.status == 'success') {
-
-                    $("#totalItems").html(data.totalItems);
-
-                    alertify.set('notifier', 'position', 'top-center');
-
-                    alertify.success('Added to Cart! To checkout goto checkout page');
-
-                }
-            });
-    }
-    </script>
     <!-- JavaScript -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function addToCart(product_id) {
+            $.post("/carts/store", {
+                    product_id: product_id
+                })
+                .done(function(data) {
+                    data = JSON.parse(data);
+                    if (data.status == 'success') {
+
+                        $("#totalItems").html(data.totalItems);
+
+                        alertify.set('notifier', 'position', 'top-center');
+
+                        alertify.success('Added to Cart! To checkout goto checkout page');
+
+                    }
+                });
+        }
+    </script>
+
     <script>
     function openmenu() {
         document.getElementById("side-menu").style.display = "block";
@@ -175,9 +178,69 @@
     <script type="text/javascript" src="{{asset('js/scroll.js')}} "></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript">
     </script>
+{{--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/utf8/3.0.0/utf8.min.js.map"></script> --}}
     <script type="text/javascript" src="{{asset('js/main.js')}} "></script>
+    <script type="text/javascript" src="{{asset('js/app.js')}} "></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js"></script>
+<script>
+$(document).ready(function() {
+    var firebaseConfig = {
+    apiKey: "AIzaSyByydM3yV7LV5CHNDC0n5snrZOo5Y4J31s",
+    authDomain: "cosmolinebd-b7d5f.firebaseapp.com",
+    projectId: "cosmolinebd-b7d5f",
+    storageBucket: "cosmolinebd-b7d5f.appspot.com",
+    messagingSenderId: "42079919319",
+    appId: "1:42079919319:web:9031809804e9ddc8802492",
+    measurementId: "G-LRVXZ8K4WH"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
+  const messaging = firebase.messaging();
 
+    @if(Auth::check())
+        var x="{{Auth::id()}}";
+        var user = x.split('&quot;').join('');
+
+        console.log('Requesting permission...');
+        // [START request_permission]
+        Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                console.log('Notification permission granted.');
+                messaging.getToken().then((currentToken) => {
+                if (currentToken) {
+                    console.log(currentToken);
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.post( "/api/set-device-token", {user_id: user, token: currentToken } );
+                    // .done(function(data) {
+                    //     alert( data );
+                    // });
+                } else {
+                        // Show permission request.
+                    console.log('No registration token available. Request permission to generate one.');
+                }
+                }).catch((err) => {
+                        console.log('An error occurred while retrieving token. ', err);
+                });
+            } else{
+                console.log('Unable to get permission to notify.');
+            }
+        });
+        console.log(user);
+        messaging.onMessage((payload) => {
+            console.log('Message received. ', payload);
+        });
+    @endif
+});
+</script>
 </body>
 
 </html>

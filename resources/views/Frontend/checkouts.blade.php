@@ -92,7 +92,7 @@
                 </label>
                 <div class="col-md-6">
                     <textarea style="border-radius: 15px !important; resize:none;" name="message" id="message"
-                        class="form-control" required></textarea>
+                        class="form-control"></textarea>
                 </div>
             </div>
             <div class="form-group row">
@@ -187,8 +187,10 @@
 
 @section('script')
 <script type="text/javascript">
+
 $("#nearest_city").change(function() {
     var nearest_city = $("#nearest_city").val();
+    
     var price = $("#price").val();
     console.log(price);
     var shipping_cost = 0;
@@ -197,7 +199,7 @@ $("#nearest_city").change(function() {
     $("#total_price2").html("");
     var total = " ";
     //send an ajax req to servers
-    $.get("http://127.0.0.1:8000/admin/get-shippingcost/" +
+    $.get(""+myapplink+"/admin/get-shippingcost/" +
         nearest_city,
         function(data) {
             var d = JSON.parse(data);
@@ -207,6 +209,8 @@ $("#nearest_city").change(function() {
             });
             total_cost = shipping_cost + parseInt(price);
             console.log(shipping_cost);
+        
+            //console.log(myapplink);
             document.orderform.shipping_charge.value = shipping_cost;
             $("#total_price").html(total_cost + " taka");
             $("#citycharge").html("Shipping Change for <strong> " + d[0].name + "</strong> : <strong>" +

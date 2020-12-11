@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -82,5 +83,119 @@
         </main>
     </div>
 </body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js"></script>
+{{-- <script defer  src="https://www.gstatic.com/firebasejs/8.1.2/firebase-init.js"></script> --}}
+{{-- <script src='https://cdn.firebase.com/js/client/8.1.2/firebase.js'></script> --}}
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-analytics.js"></script>
 
+  <!-- Add Firebase products that you want to use -->
+  {{-- <script defer  src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script> --}}
+  <script defer src="https://www.gstatic.com/firebasejs/8.1.2/firebase-functions.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyByydM3yV7LV5CHNDC0n5snrZOo5Y4J31s",
+    authDomain: "cosmolinebd-b7d5f.firebaseapp.com",
+    projectId: "cosmolinebd-b7d5f",
+    storageBucket: "cosmolinebd-b7d5f.appspot.com",
+    messagingSenderId: "42079919319",
+    appId: "1:42079919319:web:9031809804e9ddc8802492",
+    measurementId: "G-LRVXZ8K4WH"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const messaging = firebase.messaging();
+
+  console.log('Requesting permission...');
+    // [START request_permission]
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        console.log('Notification permission granted.');
+        // TODO(developer): Retrieve a registration token for use with FCM.
+        // [START_EXCLUDE]
+        // In many cases once an app has been granted notification permission,
+        // it should update its UI reflecting this.
+        // resetUI();
+        // [END_EXCLUDE]
+      } else {
+        console.log('Unable to get permission to notify.');
+      }
+    });
+//   // Add the public key generated from the console here.
+    messaging.getToken().then((currentToken) => {
+    if (currentToken) {
+        console.log(currentToken);
+    //   sendTokenToServer(currentToken);
+    //   updateUIForPushEnabled(currentToken);
+    } else {
+      // Show permission request.
+      console.log('No registration token available. Request permission to generate one.');
+      // Show permission UI.
+    //   updateUIForPushPermissionRequired();
+    //   setTokenSentToServer(false);
+    }
+    }).catch((err) => {
+        console.log('An error occurred while retrieving token. ', err);
+        // showToken('Error retrieving registration token. ', err);
+        // setTokenSentToServer(false);
+    });
+//   messaging.getToken({vapidKey: "AAAACcwonNc:APA91bHyfX9qo8Glhw9IvCXT5Y9m_DxIYjiOz7Np9BYrC0kjfeaH3q1uzpIxv7wBh8SwePz8-AkqEXF26G2gLfqAIdhbhnKLNSq6DjClHxAHSB9KzQgj3RKjKHDxMEpfXlK6OFG-jXiL"}).then((currentToken) => {
+//       if (currentToken) {
+//         console.log(currentToken);
+//         // updateUIForPushEnabled(currentToken);
+//       } else {
+//         // Show permission request.
+//         console.log('No registration token available. Request permission to generate one.');
+//         // Show permission UI.
+//         // updateUIForPushPermissionRequired();
+//         // setTokenSentToServer(false);
+//       }
+//     }).catch((err) => {
+//       console.log('An error occurred while retrieving token. ', err);
+//       showToken('Error retrieving registration token. ', err);
+//     //   setTokenSentToServer(false);
+//     });
+
+//   function showToken(currentToken) {
+//     console.log(currentToken);
+//     // Show token in console and UI.
+//     // const tokenElement = document.querySelector('#token');
+//     // tokenElement.textContent = currentToken;
+
+//   }
+
+  // Send the registration token your application server, so that it can:
+  // - send messages back to this app
+  // - subscribe/unsubscribe the token from topics
+//   function sendTokenToServer(currentToken) {
+//     if (!isTokenSentToServer()) {
+//       console.log('Sending token to server...');
+//       // TODO(developer): Send the current token to your server.
+//     //   setTokenSentToServer(true);
+//     } else {
+//       console.log('Token already sent to server so won\'t send it again ' +
+//           'unless it changes');
+//     }
+
+//   }
+
+//   function isTokenSentToServer() {
+//     return window.localStorage.getItem('sentToServer') === '1';
+//   }
+
+//   function setTokenSentToServer(sent) {
+//     window.localStorage.setItem('sentToServer', sent ? '1' : '0');
+//   }
+messaging.onMessage((payload) => {
+    console.log('Message received. ', payload);
+  });
+
+</script>
 </html>

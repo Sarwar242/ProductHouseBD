@@ -1,3 +1,6 @@
+const myapplink="http://127.0.0.1:8000";
+const myapplocallink="http://127.0.0.1:8000";
+
 jQuery(document).ready(function() {
     //Hover over navigation bar active
     $(".dropdown").hover(
@@ -48,38 +51,38 @@ jQuery(document).ready(function() {
 
     //Start owl carousel
     //$(".owl-carousel").owlCarousel();
-    var owl = $(".owl-carousel");
-    var slidesPerPage = 4;
-    owl.owlCarousel({
-        animateOut: "lightSpeedOut",
-        animateIn: "lightSpeedIn",
-        items: slidesPerPage,
-        loop: true,
-        margin: 10,
-        autoplay: true,
-        autoplayTimeout: 1500,
-        autoplayHoverPause: true,
-        // nav    : true,
-        smartSpeed: 900
-        // navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"]
-    });
-    $(".play").on("click", function() {
-        owl.trigger("play.owl.autoplay", [1000]);
-    });
-    $(".stop").on("click", function() {
-        owl.trigger("stop.owl.autoplay");
-    });
+    // var owl = $(".owl-carousel");
+    // var slidesPerPage = 4;
+    // owl.owlCarousel({
+    //     animateOut: "lightSpeedOut",
+    //     animateIn: "lightSpeedIn",
+    //     items: slidesPerPage,
+    //     loop: true,
+    //     margin: 10,
+    //     autoplay: true,
+    //     autoplayTimeout: 1500,
+    //     autoplayHoverPause: true,
+    //     // nav    : true,
+    //     smartSpeed: 900
+    //     // navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"]
+    // });
+    // $(".play").on("click", function() {
+    //     owl.trigger("play.owl.autoplay", [1000]);
+    // });
+    // $(".stop").on("click", function() {
+    //     owl.trigger("stop.owl.autoplay");
+    // });
 
-    $(".owl-prev").click(function() {
-        owl.trigger("prev.owl.carousel");
-    });
+    // $(".owl-prev").click(function() {
+    //     owl.trigger("prev.owl.carousel");
+    // });
 
-    $(".owl-next").click(function() {
-        owl.trigger("next.owl.carousel");
-    });
+    // $(".owl-next").click(function() {
+    //     owl.trigger("next.owl.carousel");
+    // });
 
     //Initialize wow()
-    new WOW().init();
+    // new WOW().init();
 
     //Featured products hover over stylish
 
@@ -131,10 +134,4 @@ jQuery(document).ready(function() {
             $(".featured5-inner").addClass("slideOutLeft hidden width0");
         });
 
-    /** Validations ***/
-
-    //Sign Up Page Validation
-    // $("#signUpForm").validate();
-
-    /** Validations ***/
 });

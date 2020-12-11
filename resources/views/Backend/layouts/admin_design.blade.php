@@ -44,6 +44,8 @@
     $(document).ready(function() {
         $('#dataTable').DataTable();
     });
+    const myapplink="http://127.0.0.1:8000";
+    const myapplocallink="http://127.0.0.1:8000";
     </script>
 
     <script src="{{ asset('js/backend_js/jquery.validate.js')}}"></script>
