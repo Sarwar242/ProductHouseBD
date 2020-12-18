@@ -179,10 +179,10 @@
         </div>
     </div>
 </section>
-@if(Session::has('success_order'))
+{{-- @if(Session::has('success_order'))
 <script type="text/javascript">
 alertify.set('notifier', 'position', 'top-center');
 alertify.success('Your order has taken successfully ,Please wait Admin will contact you!');
 </script>
-@endif
+@endif --}}
 @endsection

@@ -17,10 +17,10 @@
                 <li class="divider"></li>
                 <li>
                     <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
-                     document.getElementById('logout-form').submit();">
+                     document.getElementById('logout-form2').submit();">
                         <i class="icon icon-share-alt"></i> {{ __('Logout') }}
                     </a>
-                    <form id="logout-form" method="POST" action="{{ route('admin.logout') }}" style="display: none;">
+                    <form id="logout-form2" method="POST" action="{{ route('admin.logout') }}" style="display: none;">
                         @csrf
                     </form>
                 </li>

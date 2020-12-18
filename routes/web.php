@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Broadcast;
 //User Paths
 Route::get('/', 'Frontend\producthousebdController@index')->name('index');
 
@@ -17,6 +17,16 @@ Route::get('/product/details/{id}', 'Frontend\producthousebdController@productDe
 //user Auth
 Auth::routes();
 
+Route::get("/get-id",function()
+{
+    if(Auth::check()){
+        // dd(Auth::id());
+        return Auth::user()->id;
+    }
+    else
+        return 0;
+
+});
 Route::get('/dynamic_pdf', 'Frontend\DynamicPDFController@index')
     ->name('dynamic.pdf');
 Route::get('/dynamic_pdf/pdf', 'Frontend\DynamicPDFController@pdf')->name('dynamic.pdf.generate');
@@ -30,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/product/OrderForm/{id}', 'Frontend\producthousebdController@orderForm')->name('product.orderform');
 
     Route::post('/product/Order/confirm/{id}', 'Frontend\producthousebdController@confirmOrder')->name('product.order.confirm');
+    Broadcast::routes();
 });
 
 /*Admin Routes*/

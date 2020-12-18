@@ -9,10 +9,11 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Broadcasting\PrivateChannel;
 use App\Models\User;
 use App\Models\Order;
 
-class OrderPlaced extends Notification implements ShouldQueue, ShouldBroadcast
+class OrderPlaced extends Notification implements ShouldBroadcast
 {
     use Queueable,Dispatchable;
 

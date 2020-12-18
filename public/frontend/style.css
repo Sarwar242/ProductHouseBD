@@ -20,7 +20,18 @@ body {
 .search-box {
     display: inline-flex;
     width: 60%;
+    border: none;
 }
+input{
+    border: none !important;
+    background-color: transparent !important;
+}
+input:focus{
+    outline: none;
+    border: none !important;
+    background-color: transparent !important;
+}
+
 .logo {
     cursor: pointer;
     height: 40px;

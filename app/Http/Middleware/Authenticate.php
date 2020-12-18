@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
+use Closure;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Arr;
+use Auth;
 class Authenticate extends Middleware
 {
     /**
@@ -12,6 +15,23 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string
      */
+    protected $auth;
+    public function handle($request, Closure $next, ...$guards)
+    {
+        $guard =Arr::first($guards);
+        if (Auth::guard($guard)->guest()) {
+            if ($guard === 'api') {
+                return response('Unauthorized.', 401);
+            }else if($guard === 'admin'){
+                return redirect()->guest('/admin/login');
+            }
+
+            else {
+                return redirect()->guest('login');
+            }
+        }
+        return $next($request);
+    }
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {

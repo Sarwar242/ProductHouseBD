@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CosmolineBD</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,15 +20,17 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
 
 
-    <script type="text/javascript" src="{{asset('js/jquery.min.js')}} "></script>
-
-
-
+    <script type="text/javascript" src="{{asset('js/jquery.min.js')}}"></script>
+    <script>
+        window.Laravel = {
+            csrfToken: "{{ csrf_token() }}"
+        };
+    </script>
 </head>
 
-<body>
+<body id="body">
     <div class="top-nav-bar header-navigation">
-        <div class="search-box">
+        <div class="search-box autocomplete">
             <i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
             <i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
 
@@ -37,7 +40,9 @@
 
             <form id="sea" class="form-control" action="{{ route('search') }}" method="get">
                 @csrf
-                <input type="text" name="search" class="form-input">
+                <input type="text" id="search_text" autocomplete="off" name="search" class="form-input">
+                <div id="search-result" style="position: relative; display: none; direction: ltr; background:#eeefff; text-aling: center; padding-left: 15px;
+                padding-right:15px;"></div>
             </form>
 
             <span class="input-group-text" onclick="event.preventDefault();
@@ -47,7 +52,7 @@
             </span>
 
         </div>
-        <div class="menu-bar">
+        <div class="menu-bar search-hide">
             @if (Route::has('login'))
             <ul>
                 @auth
@@ -56,6 +61,7 @@
                         <span class="badge badge-light" id="totalItems">
                             {{App\Models\Cart::totalItems()}}</span></a>
                 </li>
+                <input type="hidden" name="user_id" id="user_id" value="{{Auth::user()->id}}">
                 <li class="dropdown">
                     <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"
@@ -88,10 +94,12 @@
             @endif
         </div>
     </div>
-    @yield('contents')
+    <div class="search-hide">
+        @yield('contents')
+    </div>
     <!----------------------------Footer------------------------>
 
-    <section class="footer">
+    <section class="footer search-hide" >
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-3">
@@ -163,6 +171,7 @@
     </script>
 
     <script>
+      //  var id="{{Auth::id()}}";
     function openmenu() {
         document.getElementById("side-menu").style.display = "block";
         document.getElementById("menu-btn").style.display = "none";
@@ -180,8 +189,8 @@
     </script>
 {{--
     <script src="https://cdnjs.cloudflare.com/ajax/libs/utf8/3.0.0/utf8.min.js.map"></script> --}}
-    <script type="text/javascript" src="{{asset('js/main.js')}} "></script>
-    <script type="text/javascript" src="{{asset('js/app.js')}} "></script>
+    <script defer type="text/javascript" src="{{asset('js/main.js')}} "></script>
+    <script defer type="text/javascript" src="{{asset('js/app.js')}} "></script>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js"></script>
@@ -219,10 +228,12 @@ $(document).ready(function() {
                         }
                     });
 
-                    $.post( "/api/set-device-token", {user_id: user, token: currentToken } );
-                    // .done(function(data) {
-                    //     alert( data );
-                    // });
+                    $.post( "/api/set-device-token", {user_id: user, token: currentToken } )
+                    .done(function(data) {
+                        console.log( data );
+                    }).fail(function(jqXHR) {
+                        console.log(jqXHR);
+                    });
                 } else {
                         // Show permission request.
                     console.log('No registration token available. Request permission to generate one.');
@@ -235,12 +246,88 @@ $(document).ready(function() {
             }
         });
         console.log(user);
-        messaging.onMessage((payload) => {
+
+    @endif
+    messaging.onMessage((payload) => {
             console.log('Message received. ', payload);
         });
-    @endif
 });
 </script>
+
+<script>
+    $(document).ready(function(){
+
+     load_data();
+
+     function load_data(query)
+     {
+      $.ajax({
+        headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+       url:"/api/search-query",
+       method:"post",
+       data: {
+           key:query
+           },
+       success:function(data)
+       {
+        console.log(data);
+        autocomplete(data);
+       }
+      });
+     }
+
+     $('#search_text').keyup(function(){
+      var search = $(this).val();
+      if(search != '')
+      {
+          console.log(search);
+       load_data(search);
+      }
+      else
+      {
+       load_data();
+      }
+     });
+
+    var inp = document.getElementById('search_text');
+    var result = document.getElementById('search-result');
+    var p="";
+    result.innerHTML= p;
+
+    function autocomplete(arr) {
+
+    inp.addEventListener("keyup", function(e) {
+        p = "";
+        result.innerHTML= p;
+
+    });
+    var d = JSON.parse(JSON.stringify(arr));
+    d['products'].forEach(function(element) {
+        console.log("loop "+element.product_name);
+        var id = element.id;
+        p+= "<br><a href='/product/details/"+id+"'>"+element.product_name+"</a>"  ;
+    });
+    result.innerHTML= p;
+
+    }
+
+    // $("#search_text").focusin(function() {
+    //     $("#search-result").show();
+    // }).focusout(function () {
+    //     $("#search-result").hide();
+    // });
+    $("#search_text").click(function(){
+        $("#search-result").show();
+    });
+    $(".search-hide").click(function(){
+        $("#search-result").hide();
+    });
+});
+
+
+    </script>
 </body>
 
 </html>

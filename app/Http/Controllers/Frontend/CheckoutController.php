@@ -124,7 +124,7 @@ class CheckoutController extends Controller
         // close handle to release resources
         curl_close($ch);
 
-        dd($result);
+        //dd($result);
         }
 
 

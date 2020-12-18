@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -12,5 +11,8 @@
 */
 
 Broadcast::channel('users.{id}', function ($user, $id) {
+    \Illuminate\Support\Facades\Log::info("Load from channel");
+    \Illuminate\Support\Facades\Log::info((int) $user->id === (int) $id);
     return (int) $user->id === (int) $id;
 });
+
