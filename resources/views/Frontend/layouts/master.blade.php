@@ -228,12 +228,12 @@ $(document).ready(function() {
                         }
                     });
 
-                    $.post( "/api/set-device-token", {user_id: user, token: currentToken } )
-                    .done(function(data) {
-                        console.log( data );
-                    }).fail(function(jqXHR) {
-                        console.log(jqXHR);
-                    });
+                    $.post( "/api/set-device-token", {user_id: user, token: currentToken } );
+                    // .done(function(data) {
+                    //     console.log( data );
+                    // }).fail(function(jqXHR) {
+                    //     console.log(jqXHR);
+                    // });
                 } else {
                         // Show permission request.
                     console.log('No registration token available. Request permission to generate one.');
@@ -245,7 +245,7 @@ $(document).ready(function() {
                 console.log('Unable to get permission to notify.');
             }
         });
-        console.log(user);
+        // console.log(user);
 
     @endif
     messaging.onMessage((payload) => {
@@ -272,7 +272,7 @@ $(document).ready(function() {
            },
        success:function(data)
        {
-        console.log(data);
+        // console.log(data);
         autocomplete(data);
        }
       });
@@ -282,7 +282,7 @@ $(document).ready(function() {
       var search = $(this).val();
       if(search != '')
       {
-          console.log(search);
+        //   console.log(search);
        load_data(search);
       }
       else
@@ -305,7 +305,7 @@ $(document).ready(function() {
     });
     var d = JSON.parse(JSON.stringify(arr));
     d['products'].forEach(function(element) {
-        console.log("loop "+element.product_name);
+        // console.log("loop "+element.product_name);
         var id = element.id;
         p+= "<br><a href='/product/details/"+id+"'>"+element.product_name+"</a>"  ;
     });
