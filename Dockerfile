@@ -40,4 +40,4 @@ RUN chown -R www-data:www-data /var/www
 
 # Expose port 8000 and start PHP's built-in server
 EXPOSE 8000
-CMD ["php", "artisan", "serve", "--host=127.0.0.1", "--port=8000"]
+CMD php artisan serve --host=0.0.0.0 --port=8000
