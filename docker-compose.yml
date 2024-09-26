@@ -1,7 +1,7 @@
-version: '3'
+version: '03'
 services:
   app:
-    image: sarwar242/producthousebd:05
+    image: sarwar242/producthousebd:v1.1.0
     ports:
       - "8000:8000"
     environment:
